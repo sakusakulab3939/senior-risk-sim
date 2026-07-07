@@ -1,5 +1,6 @@
 .env
 output/
+videos/*/output/
 *.log
 __pycache__/
 node_modules/

@@ -54,15 +54,23 @@ risk_simジャンル対応・全文一括執筆方式に作り替えたもの。
 
 | ファイル | 生成工程 | 内容 |
 |---|---|---|
-| `blueprint.json` | B-1 | 選定された企画案（テーマ・プロット・結末パターン・サムネ方向） |
-| `FINAL_SCRIPT_FULL.md` | B-2 | 全文一括執筆された台本 |
-| `quality_report.md` | B-4 | 6軸ルーブリック品質批評と修正指示 |
-| `output/voice_plain_text.txt` | B-5 | Vrew用ナレーション素材 |
-| `output/voice_assignment.csv` | B-5 | 話者割当 |
-| `output/image_prompts_final.json` | B-5 | 画像生成プロンプト |
+| `videos/{video_id}/blueprint.json` | B-1 | 選定された企画案（テーマ・プロット・結末パターン・サムネ方向） |
+| `videos/{video_id}/FINAL_SCRIPT_FULL.md` | B-2 | 全文一括執筆された台本 |
+| `videos/{video_id}/quality_report.md` | B-4 | 6軸ルーブリック品質批評と修正指示 |
+| `videos/{video_id}/output/voice_plain_text.txt` | B-5 | Vrew用ナレーション素材 |
+| `videos/{video_id}/output/voice_assignment.csv` | B-5 | 話者割当 |
+| `videos/{video_id}/output/image_prompts_final.json` | B-5 | 画像生成プロンプト |
 | `genres/risk_sim.json` | Phase 0-3 | ジャンル設計（ゾーン構造・結末パターン・chars_per_scene） |
 
 各工程の担当エージェントは、この表にあるファイルの読み書きだけで完結させること。
+
+### 動画ごとの成果物の置き場所
+
+動画ごとの成果物（`blueprint.json`、`FINAL_SCRIPT_FULL.md`、`quality_report.md` 等）は
+`videos/{video_id}/` 以下に置く。`video_id` の命名規則は
+**「3桁連番_テーマの短いスラッグ」**（例：`001_taishokukin_shousagi`）とする。
+
+企画案のフォーマットは `videos/_template/blueprint_template.json` を参照する。
 
 ---
 
