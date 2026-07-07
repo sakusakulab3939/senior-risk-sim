@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "template_for": "B-1企画案生成の出力フォーマット",
+    "note": "Sonnet 4.6が3案生成する際は、この形式の配列を3つ出力する。人間が1案選んでこのファイル単体をblueprint.jsonとして確定する"
+  },
+  "genre": "risk_sim",
+  "theme": "（例：退職金の運用詐欺）",
+  "plot_summary": "（3〜5行で、日常→判断ミス→帰結の流れを要約）",
+  "ending_pattern": "complete_failure",
+  "_ending_pattern_options_note": "risk_sim.jsonのending_patterns.availableでavailable:falseのものは候補から外すこと（現在recoveryは初期10本除外中）",
+  "_ending_pattern_options": ["complete_failure", "near_miss", "small_lesson", "recovery"],
+  "explanation_layout": "trailing_block",
+  "_explanation_layout_options": ["trailing_block", "distributed", "compressed"],
+  "_explanation_layout_note": "初期10本では3パターンをテーマを揃えて振り分け、metrics.csvのexplanation_layout列と維持率を突合する（Opusレビュー R-1反映）",
+  "duration_mode": "fast_validation",
+  "_duration_mode_options": ["fast_validation", "standard"],
+  "protagonist": {
+    "age": null,
+    "occupation": "",
+    "family_structure": "",
+    "core_vulnerability": "（判断ミスにつながる性格・状況上の弱点）"
+  },
+  "key_misjudgments": [
+    "（判断ミス1：小さな見落とし）",
+    "（判断ミス2：誘惑への屈服）",
+    "（判断ミス3：後戻りの機会を逃す）"
+  ],
+  "explanation_focus": "（解説パートで扱う制度・予防策のテーマ。例：クーリングオフ制度、金融庁の適合性原則など）",
+  "thumbnail_direction": [
+    "（方向性1）",
+    "（方向性2）",
+    "（方向性3）"
+  ]
+}

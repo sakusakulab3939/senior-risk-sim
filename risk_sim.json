@@ -1,0 +1,147 @@
+{
+  "_meta": {
+    "genre_id": "risk_sim",
+    "genre_name": "人生リスク・失敗シミュレーション",
+    "version": "0.2",
+    "status": "Opus 4.8による最終レビュー反映済み（M-1, M-2, M-3, R-1, R-2, R-3対応）。本番投入可",
+    "target_audience": "45-70代、老後生活・資産・詐欺・介護への不安を持つ層",
+    "design_notes": [
+      "結末パターンの比率はここに持たせない。比率を強制するとパイプラインが重くなり、根拠のない初期仮説が固定化される。",
+      "結末パターンはblueprint.json側で動画ごとに人間が指定する（enum参照はending_patterns.available）。",
+      "本ジャンルはPart分割・MISSION方式を使わない。全文一括執筆プロンプト（Phase 0-4）と組み合わせて使う。"
+    ]
+  },
+
+  "duration_options_sec": {
+    "fast_validation": { "min": 720, "max": 900, "note": "検証速度優先。最初の数本で使う想定" },
+    "standard": { "min": 1200, "max": 1440, "note": "通常運用" }
+  },
+
+  "narration_speed": {
+    "chars_per_min": 417,
+    "source": "v5.1実測値を引き継ぎ。ElevenLabs音声・平均話速で再検証が必要な場合は更新する",
+    "effective_char_ratio": 0.85,
+    "effective_char_ratio_note": "417字/分は連続読み上げの理論値。実際の台本には話者切替・間（ま）・SEポーズ・BGMブリッジの無音区間が入るため、実効値として0.85を掛ける。これがないと推定尺が常に楽観側にズレ、B-3の構造バリデーションとB-10編集で尺超過が発覚する。再検証で更新可"
+  },
+
+  "zones": [
+    {
+      "zone_id": "hook_ending_glimpse",
+      "name": "結末フック",
+      "order": 1,
+      "purpose": "動画冒頭で結末の一部（危機の断片・後悔の一言など）を提示し、視聴継続動機を作る。ここで結末パターンを明かしすぎない。",
+      "duration_ratio": 0.05,
+      "min_sec": 20,
+      "max_sec": 35,
+      "pacing": "最速。1〜2カットで惹きつける。説明的にしない",
+      "retention_target": "冒頭30秒維持率に直結する最重要ゾーン",
+      "duration_calc_note": "ratio計算値とmin_sec/max_secが乖離する場合はmax_secを優先する（fast_validation=720秒ではratio計算だと36秒になり1〜2カットのpacing指定と噛み合わないため）"
+    },
+    {
+      "zone_id": "daily_life",
+      "name": "日常",
+      "order": 2,
+      "purpose": "主人公の生活・価値観・現在の安定を提示し、後の判断ミスとの対比を作る。感情移入の土台",
+      "duration_ratio": 0.15,
+      "pacing": "落ち着いたテンポ。ただし冗長にしない。後の判断ミスにつながる性格・環境要因の布石を1つ以上仕込む（crisisの帰結ではなく、misjudgment_accumulationへの布石であることを明記）"
+    },
+    {
+      "zone_id": "misjudgment_accumulation",
+      "name": "判断ミス累積",
+      "order": 3,
+      "purpose": "小さな判断ミス・見落とし・誘惑への屈服を段階的に積み重ねる。1回の大失敗ではなく積み重ねで見せる",
+      "duration_ratio": 0.30,
+      "pacing": "ミスの粒度を徐々に大きくする。視聴者が「自分もやりそう」と感じる具体性を重視",
+      "requires": ["独立した判断ミスを3つ以上、時系列で積み重ねる（blueprint.jsonのkey_misjudgmentsが3項のため整合させる）", "感情的な代償行動の描写", "第三者（家族・友人）の違和感提示を1回以上入れる"]
+    },
+    {
+      "zone_id": "crisis_regret",
+      "name": "危機・後悔",
+      "order": 4,
+      "purpose": "結末パターンに応じた帰結を描く。ending_pattern（blueprint.json側で指定）によって展開が分岐する",
+      "duration_ratio": 0.25,
+      "pacing": "感情のピーク。ここが最も重い演出配分",
+      "branches_by_ending_pattern": true,
+      "branch_specs": {
+        "note": "definition（ending_patterns.available側）は結末の意味、branch_specsは構造ヒント（どういうビートで書くか）。責務を分離する",
+        "complete_failure": "回避できた分岐点を1つ明示的に通り過ぎさせてから帰結を描く。救済・軽減は入れない",
+        "near_miss": "帰結直前に介入または踏みとどまりのトリガーを1つ明確に置く。何が効いたかを解説ゾーンに引き渡せる形にする",
+        "small_lesson": "実害は限定した範囲に収め、主人公が誤りに気づく瞬間を明確なビートとして描く",
+        "recovery": "支えの主体（家族／制度／地域のいずれか1つに絞る）を明示し、カタルシスの瞬間を配置する"
+      }
+    },
+    {
+      "zone_id": "explanation",
+      "name": "解説",
+      "order": 5,
+      "purpose": "何が分岐点だったか、視聴者が取れる予防策・制度知識を解説する。ナレーションで危機ゾーン中に伏線を張り、唐突な後置きにしない",
+      "duration_ratio": 0.20,
+      "pacing": "情報密度は高いが、テンポは物語より落とす。ただし単調な講義口調にしない",
+      "retention_risk": "物語クライマックス後の離脱が最も起きやすいゾーン。後置きの塊/物語内分散/圧縮の3パターンを初期10本でテストする。どのパターンを使ったかはblueprint.jsonのexplanation_layoutフィールドで1本ごとに記録し、metrics.csvのexplanation_layout列と突合して比較する（enum定義はexplanation_layout_options参照）",
+      "avoid": ["説教臭い断定口調", "CTA的な煽り", "スローガン化した警句"]
+    },
+    {
+      "zone_id": "checklist",
+      "name": "チェックリスト",
+      "order": 6,
+      "purpose": "解説内容を視覚的なチェックリストとして要約し、行動可能な形で締める",
+      "duration_ratio": 0.05,
+      "min_sec": 25,
+      "max_sec": 45,
+      "pacing": "テンポよく列挙。冗長な繰り返しをしない",
+      "visual_note": "DaVinci解説パート用テロップテンプレ（Phase 0-6）と連動",
+      "duration_calc_note": "hookと同率(0.05)だが役割が異なる。min/max_secはhookより広め（列挙項目数に応じて多少伸びてよいため）"
+    }
+  ],
+
+  "explanation_layout_options": {
+    "available": ["trailing_block", "distributed", "compressed"],
+    "definitions": {
+      "trailing_block": "危機・後悔ゾームの後に解説をまとめて配置する（現行のデフォルト構成）",
+      "distributed": "解説要素を物語ゾーン内（日常・判断ミス累積）にナレーションとして分散させ、crisis後の解説は要点のみに圧縮する",
+      "compressed": "解説の尺自体を短縮し、チェックリストゾーンへの橋渡しを速める"
+    },
+    "assignment_note": "比率は強制しない。動画ごとにblueprint.jsonのexplanation_layoutフィールドで人間が指定し、metrics.csvのexplanation_layout列と維持率データを突合する（Opusレビュー R-1反映）"
+  },
+
+  "ending_patterns": {
+    "available": [
+      {
+        "id": "complete_failure",
+        "name": "完全失敗",
+        "available": true,
+        "definition": "回避のチャンスがありながら判断ミスが積み重なり、致命的な結果に至る。救いは薄いが、教訓として何が分岐点だったかを明確に示す",
+        "notes": "サムネ・タイトルのインパクトが最も強く、CTR・コメント誘発力が高い。立ち上げ期に優先すべき型"
+      },
+      {
+        "id": "near_miss",
+        "name": "寸前回避",
+        "available": true,
+        "definition": "判断ミスが進行するが、第三者の介入や偶然、あるいは主人公自身の踏みとどまりによって致命的結果の直前で回避する",
+        "notes": "解説パートで「なぜ回避できたか」を再現可能な行動として提示しやすい"
+      },
+      {
+        "id": "small_lesson",
+        "name": "小失敗学習",
+        "available": true,
+        "definition": "実害は限定的だが、主人公が誤りに気づき軌道修正する。深刻さは低いが実践的な教訓密度が高い",
+        "notes": "深刻な結末に抵抗がある層への間口として機能する"
+      },
+      {
+        "id": "recovery",
+        "name": "感動回復",
+        "available": false,
+        "exclusion_reason": "既存フォーマットとして飽和済み。初期10本では検証ノイズになるため使用しない（1本=10%では判断材料にならない）。チャンネルが回り始めてから緩急のカードとして投入する",
+        "definition": "危機を経て、家族・地域・制度の支えにより再起する。感情的なカタルシスを重視",
+        "notes": "初期フェーズを抜けたら available:true に戻す"
+      }
+    ],
+    "assignment_note": "この比率・配分は本ファイルで強制しない。動画ごとにblueprint.jsonのending_patternフィールドで人間が指定する（B-1）。available:falseのパターンはB-1の企画提案プロンプト側でフィルタし、そもそも候補に出さない。初期10本の配分ガイドラインはCLAUDE.mdを参照"
+  },
+
+  "chars_per_scene_calc": {
+    "method": "zone_duration_sec = max(duration_sec * zone.duration_ratio, zone.min_sec ?? 0); zone_duration_sec = min(zone_duration_sec, zone.max_sec ?? Infinity); zone_char_budget = zone_duration_sec / 60 * chars_per_min * effective_char_ratio",
+    "scene_split_rule": "zone_char_budgetをそのゾーンの想定シーン数で割る。シーン数はorder3(判断ミス累積)が最多、order1・6が最少になる想定。端数は切り捨てず、余りは判断ミス累積ゾーンの最終シーンに加算する（最も内容の伸縮に耐えるゾーンのため）",
+    "note": "スクリプト執筆プロンプト（Phase 0-4）側で実際の計算ロジックを実装する。ここでは設計上の前提のみ定義。zone.min_sec/max_secとeffective_char_ratioは前提定義としてJSON側が管轄する（Opusレビュー M-1/M-2 反映）"
+  }
+}
