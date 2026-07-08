@@ -2,8 +2,8 @@
   "_meta": {
     "genre_id": "risk_sim",
     "genre_name": "人生リスク・失敗シミュレーション",
-    "version": "0.2",
-    "status": "Opus 4.8による最終レビュー反映済み（M-1, M-2, M-3, R-1, R-2, R-3対応）。本番投入可",
+    "version": "0.3",
+    "status": "Opus 4.8による最終レビュー反映済み（M-1, M-2, M-3, R-1, R-2, R-3対応）。本番投入可。v0.3でvisual_styleブロックを追加（ADR-004、CLAUDE.md『risk_sim.json確定前のOpus 1回レビュー』枠で確定）",
     "target_audience": "45-70代、老後生活・資産・詐欺・介護への不安を持つ層",
     "design_notes": [
       "結末パターンの比率はここに持たせない。比率を強制するとパイプラインが重くなり、根拠のない初期仮説が固定化される。",
@@ -162,5 +162,51 @@
     "method": "zone_duration_sec = max(duration_sec * zone.duration_ratio, zone.min_sec ?? 0); zone_duration_sec = min(zone_duration_sec, zone.max_sec ?? Infinity); zone_char_budget = zone_duration_sec / 60 * chars_per_min * effective_char_ratio",
     "scene_split_rule": "zone_char_budgetをそのゾーンの想定シーン数で割る。シーン数はorder3(判断ミス累積)が最多、order1・6が最少になる想定。端数は切り捨てず、余りは判断ミス累積ゾーンの最終シーンに加算する（最も内容の伸縮に耐えるゾーンのため）",
     "note": "スクリプト執筆プロンプト（Phase 0-4）側で実際の計算ロジックを実装する。ここでは設計上の前提のみ定義。zone.min_sec/max_secとeffective_char_ratioは前提定義としてJSON側が管轄する（Opusレビュー M-1/M-2 反映）"
+  },
+
+  "visual_style": {
+    "_status": "本セッション（Opus 4.8）でCLAUDE.md『risk_sim.json確定前のOpus 1回レビュー』枠として最終確定。詳細と捨てた選択肢はADR-004参照",
+    "generation_tool": {
+      "name": "nanobanana (Nano Banana Pro / Gemini 3 Pro Image)",
+      "reference_conditioning": true,
+      "max_consistent_subjects": 5,
+      "usage_note": "参照画像条件付けに対応。キャラクター/ロケーションシートの各パネル（三面図 front/side/back・表情パネル）を個別の参照画像として渡し、一貫性を担保する"
+    },
+    "base_style_tag": "manga anime style, cel shading, crisp clean linework, controlled color palette",
+    "_base_style_tag_note": "確定＝変更禁止（トレイトロックのスタイル版）。旧仕様の 'high quality illustration'（情報量の薄いフィラー語）を除去し 'cel shading, crisp clean linework' を追加（線の明確化・シニア可読性）。旧調査の 'vivid saturated colors' はこのジャンル（深刻な失敗談）にトーン不一致のため不採用。DRAFT解除条件＝nanobananaでの初号生成テスト通過",
+    "zone_color_grading": {
+      "_note": "DRAFT・根拠なし。base_style_tagのcontrolled paletteを保ったまま、彩度・明度・色温度をゾーンの感情に合わせて振る。各CUTプロンプト末尾（base_style_tagの直前）に該当ゾーンの語句を差し込む。初期10本の維持率実測後に見直す",
+      "hook_ending_glimpse": "low-key, desaturated, ominous",
+      "daily_life": "warm, natural saturation, soft daylight",
+      "misjudgment_accumulation": "gradually cooler tones, mild desaturation as mistakes accumulate",
+      "crisis_regret": "cold, heavily desaturated, low-key dramatic lighting",
+      "explanation": "neutral, even lighting, high clarity",
+      "checklist": "clean, calm neutral tones, high clarity"
+    },
+    "text_exclusion_guard": {
+      "text": "absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image",
+      "scope": "scene_cut_only",
+      "_note": "本編フレーム（SCENE/CUTの画像プロンプト）にのみ付与する。DaVinci解説パートでテロップを別途載せるため画像内文字は禁止。チェックリスト等は『空のチェックボックス＋アイコンのみ』で描き、文言はDaVinciで載せる。キャラクター/ロケーションシートには付与しない"
+    },
+    "sheet_label_policy": "画像内にラベル文字を焼き込まない（拡散系モデルで文字化けする＋text_exclusion_guardと矛盾する）。ラベルはファイル名で管理する。例: P1_fujita_kenichi.png / LOC01_living_room.png。旧仕様の character sheet 末尾 labeled '[名前]' はこの方針で廃止",
+    "trait_locking": {
+      "rule": "各キャラクター/ロケーションの locked_prompt_fragment は、全プロンプトで一言一句同じ文字列をそのまま使い回す。LLMに毎回再合成させない（語順ドリフトを防ぐ）",
+      "authoring": "locked_prompt_fragment の確定は人間の判断（ブランディング）。B-1の企画確定に畳み込む（人間判断3回=B-1/B-4/B-11の枠を増やさない）",
+      "enforcement": "将来は production_extractor が [base_style_tag]+[locationのfragment]+[characterのfragment]+[シーン固有の演技]+[zone_color_grading]+[text_exclusion_guard] を機械連結する（案B）。これは2本目以降で実装（ADR-004の『次回作から』F/I項目）"
+    },
+    "character_sheet_template": {
+      "prompt": "character design sheet, full body three-view (front, side, back) on the left, four facial expressions (confident, uneasy, shocked, despairing) on the right, {locked_prompt_fragment}, white background, manga anime style, cel shading, crisp clean linework, controlled color palette",
+      "_expression_set_note": "DRAFT。risk_simの感情アーク（自信→不安→恐怖→絶望）に写像。旧仕様の汎用セット happy/surprised/crying/pained から変更。本セッションでOpus確定",
+      "_three_view_note": "背面図(back)はシート＝人間の目視確認用の1枚絵には残す。生成時は各パネル（front/side/back/各表情）を個別の参照画像としてnanobananaに渡すため背面図も無駄にならない（ADR-004でKを『採用』に格上げ）。ただしパネル切り出しが参照画質として使えるよう、シートは高解像度で生成する（DRAFT: 2K以上目安）",
+      "_label_note": "画像内ラベルは付けない（sheet_label_policy）。text_exclusion_guardも付けない"
+    },
+    "location_sheet_template": {
+      "prompt": "location design sheet, 2x2 grid layout, {location_name}, Panel 1 (establishing wide): {desc}, Panel 2 (medium): {desc}, Panel 3 (detail): {desc}, Panel 4 (alternate angle): {desc}, manga background style, cel shading, crisp clean linework, controlled color palette",
+      "_note": "画像内ラベル・text_exclusion_guardは付けない。ロケーションは単話完結のため小数（主人公宅・銀行窓口程度）"
+    },
+    "application_timeline": {
+      "immediate": "base_style_tag / zone_color_grading / text_exclusion_guard(scope) / sheet_label_policy は即時有効。1本目(001)にはIMAGE_PROMPTの軽量トレイトロックとして適用済み（ADR-004のE）",
+      "from_second_video": "blueprint.jsonへのvisual_cast/locationsスキーマ追加、B-1.5シート生成工程、production_extractorの機械連結（案B）は2本目から（ADR-004のF/G/H/I）"
+    }
   }
 }

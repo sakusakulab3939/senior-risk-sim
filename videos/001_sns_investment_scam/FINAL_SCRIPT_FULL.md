@@ -1,0 +1,71 @@
+---
+genre: risk_sim
+theme: SNS型投資詐欺・退職金一括投資
+ending_pattern: complete_failure
+explanation_layout: trailing_block
+duration_mode: fast_validation
+duration_sec: 810
+total_scenes: 11
+zone_scene_counts:
+  hook_ending_glimpse: 1
+  daily_life: 2
+  misjudgment_accumulation: 3
+  crisis_regret: 2
+  explanation: 2
+  checklist: 1
+---
+
+## SCENE 001 [zone: hook_ending_glimpse]
+NARRATION: 「出金できません」。その一行が、もう三日、画面から消えなかった。深夜のリビングで、六十二歳の男が、スマートフォンを何度も指でなぞる。表示されているのは、増え続けていたはずの資産の数字。けれど、その一円も、もう彼の手には戻らない。退職金と、会社を売って得たお金。四十年かけて積み上げたすべてが、たった一本の広告から静かに溶けていく。あの時、どこで引き返せたのか。男はまだ、その問いに向き合えずにいた。
+IMAGE_PROMPT: a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, sitting alone in a dark living room at midnight, face lit only by a smartphone screen, expression of worry and disbelief, low-key desaturated ominous lighting, medium shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: 深夜の静寂、時計の秒針
+
+## SCENE 002 [zone: daily_life]
+NARRATION: 藤田健一、六十二歳。三十代で小さな部品加工の会社を立ち上げ、四十年近く、経営者として走り続けてきた。二年前、その会社を同業の企業に売却し、退職金とあわせて、まとまった蓄えを手にした。銀行に並んだその数字は、四十年の働きそのものだった。妻と二人、住宅ローンも払い終えた持ち家で、これからは穏やかに暮らすはずだった。健一には、ひとつの口癖があった。「俺は現場で、人も金も見てきた。人を見る目には自信がある」。取引先の倒産も、部下の裏切りも、資金繰りの綱渡りも、経営者として何度もくぐり抜けてきた。その経験の一つひとつが、彼に強い自負を残していた。だからこそ、他人の忠告を「素人の心配ごと」として、軽く受け流す癖がついていた。この揺るがない自負が、後にどんな判断へ彼を導いていくのか。この時の本人は、まだ想像もしていない。
+IMAGE_PROMPT: a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, standing confidently in his comfortable home with arms crossed, self-assured expression, warm natural daylight, soft saturation, portrait, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: 穏やかな生活音
+
+## SCENE 003 [zone: daily_life]
+NARRATION: 退職後の健一の一日は、静かだった。朝は妻の淹れたコーヒーを飲み、午後は近所を散歩し、夜はニュースと経済番組を眺める。おだやかな日々のはずだった。ただ、通帳の残高だけは、少しずつ彼の心に影を落としていた。まとまった蓄えはある。けれど、預けていても金利はほとんどつかない。物価は上がり続け、これから先、介護や医療に、いくらかかるのかもわからない。「このまま置いておくだけでは、ただ目減りしていくだけだ」。現役時代、金を動かして増やすのが当たり前だった健一にとって、ただ眠らせておくだけの預金は、どこか落ち着かないものだった。何か、いい運用先はないものか。そんな思いを抱えたまま、彼は毎晩、スマートフォンで経済情報を追うようになっていた。その指が、ある一本の広告の上で止まる日まで、もう、あと少しだった。
+IMAGE_PROMPT: a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, sitting at a table at night looking at a bank passbook with a faintly anxious expression, dim warm home lighting, medium shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: ページをめくる音
+
+## SCENE 004 [zone: misjudgment_accumulation]
+NARRATION: きっかけは、動画サイトを見ていた時に流れてきた、一本の広告だった。テレビでも見たことのある、有名な投資家。その人物が、画面の中から笑顔で語りかけてくる。「私が厳選した銘柄なら、元本保証で、月利八パーセントも夢ではありません」。画面の下には、公式マークのついた、それらしいアカウント名が並んでいた。健一は一瞬、うさんくさい話だと思った。だが、次の瞬間には、こうも考えていた。「これだけ有名な投資家が名前を出しているなら、話くらいは聞いてもいい。それに、怪しい話かどうかは、この俺なら見抜ける」。広告のリンクをたどると、LINEの投資グループへの案内が現れた。登録は無料。参加すれば、その投資家の分析が、毎日届くのだという。健一は、ほとんど迷わずに登録した。この時、本当は、確かめるべきことが一つだけあった。その業者が、金融庁に登録された、正規の事業者なのかどうか。国の公式サイトで名前を検索すれば、ほんの数分で分かることだった。だが、健一はそれをしなかった。四十年の経験が、「自分の目」を、公的な確認よりも上に置かせていた。
+IMAGE_PROMPT: a smartphone held in the hand of a Japanese man in his early 60s wearing a beige cardigan, the screen showing a fake investment advertisement with a smiling celebrity investor portrait and a fake verified checkmark badge, the man's tempted face softly out of focus behind, slightly cool tones, close-up, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: スマホの通知音
+
+## SCENE 005 [zone: misjudgment_accumulation]
+NARRATION: グループに入ると、そこは想像していた以上に賑やかだった。数百人ものメンバーが、日々のやり取りを投稿している。「今月も、しっかり配当が入りました」「出金申請から、三十分で着金しましたよ」。スクリーンショット付きの成功報告が、次から次へと流れてくる。半信半疑だった健一も、まずは十万円だけ、試しに入れてみることにした。指示されたとおりの銘柄を「購入」すると、専用アプリの残高が、翌日には十万三千円に増えていた。ためしに二万円の出金を申請してみると、それは本当に、自分の銀行口座へと振り込まれた。この瞬間、健一の中で、何かがはっきりと切り替わった。「なんだ、やっぱり本物じゃないか」。かすかな疑いは、揺るぎない確信へと変わった。彼は次に百万円を入れ、間を置かず、さらに三百万円を追加した。増えていく数字を眺めるのが、いつしか、一日でいちばんの楽しみになっていた。あの賑やかな成功報告の多くが、運営側が用意したサクラの投稿であることに、彼は最後まで気づかなかった。たった一度の、小さな出金の成功だけが、疑うべき理由のすべてを、きれいに覆い隠していた。
+IMAGE_PROMPT: a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, watching a smartphone showing a crowded group chat full of profit screenshots and charts, a growing greedy smile on his face, screen glow on his face, slightly cool mildly desaturated tones, medium shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: メッセージ着信音の連続
+
+## SCENE 006 [zone: misjudgment_accumulation]
+NARRATION: 投資額が膨らんでいくにつれ、健一の生活は、少しずつ変わっていった。夜中まで画面を見つめ、増えていく含み益の額を、妻に自慢するようにもなった。ある晩、妻の美和子が、遠慮がちに切り出した。「ねえ、あなた。そのグループ、少し怪しくない？この前、お友達が、似たような話で騙されたって言ってたのよ」。健一は、ほとんど反射的に言い返した。「金融のことは、俺のほうがずっと詳しい。素人の心配で、いい話を逃せというのか」。美和子は、それ以上は、何も言わなかった。ちょうどその頃、グループの中では「特別増資キャンペーン」が始まっていた。「今月中に追加された方だけ、特別に、月利を上乗せいたします」。担当を名乗る人物からは、健一に直接、メッセージまで届いた。「藤田さんは、私たちにとって特別な会員です。ぜひ、この機会を逃さないでください」。健一の頭の中で、増え続ける数字が、まだ手つかずの退職金の残りと、ぴたりと重なった。ここで一気に入れておけば、老後の不安は、きれいに消える。彼はその夜、退職金と会社の売却益の大部分、およそ三千万円を、一括で投入する決断をした。妻のあの忠告は、もう、耳のどこにも残っていなかった。
+IMAGE_PROMPT: a Japanese man in his early 60s with short greying receding hair, thin-framed glasses and a beige cardigan, at home at night irritably waving off his worried wife, beside him a Japanese woman in her late 50s with shoulder-length greying hair and a soft lavender knit cardigan looking anxious and hesitant, tension between them, cool desaturated evening lighting, two shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: 夫婦の会話、沈黙
+
+## SCENE 007 [zone: crisis_regret]
+NARRATION: 三千万円もの大金を送金するには、ネット上の操作だけでは足りず、銀行の窓口で、大口の振込手続きを踏む必要があった。翌朝、健一は通帳と印鑑を持って、長年付き合いのある地元の銀行へと向かった。窓口で振込先の口座と金額を告げると、応対した若い行員の表情が、わずかに曇った。「藤田さま。失礼ですが、こちらの振込先は、どのようなご関係の先でしょうか」。行員は、言葉を選びながら続けた。「最近、投資を装った詐欺の被害が、大変増えておりまして。念のため、お手続きの前に、もう一度だけ、ご確認いただくこともできますが」。それは、間違いなく、引き返すための、はっきりとした分岐点だった。ここで一度立ち止まり、業者の名前を金融庁のサイトで調べてさえいれば、登録された事業者などではないと、その場で分かったはずだった。だが健一は、むっとした表情で、こう答えるだけだった。「私はね、元経営者だ。金の扱いは、あなたなんかより、よほど分かっている。いいから、手続きを進めてくれ」。行員は小さく頭を下げ、それ以上は、何も言わなかった。数分後、三千万円は、健一の口座から、指定された見知らぬ口座へと流れていった。振込完了の控えを受け取りながら、健一は、むしろ誇らしげですらあった。自分は、素人には見えないチャンスを掴んだのだ、と。その揺るぎない確信こそが、彼にとって本当に最後の分岐点を、すっかり見えなくさせていた。
+IMAGE_PROMPT: a young Japanese male bank teller in a navy uniform cautiously questioning an impatient elderly customer at a bank counter, the customer a Japanese man in his early 60s with short greying receding hair, thin-framed glasses and a beige cardigan waving off the warning with a proud irritated expression, cold desaturated low-key lighting, medium shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: 銀行の窓口の環境音
+
+## SCENE 008 [zone: crisis_regret]
+NARRATION: 異変が始まったのは、その一週間ほど後のことだった。アプリの上の残高は、あいかわらず、増え続けていた。投じた三千万円は、画面の中では、四千万円に近づこうとしていた。すっかり気を良くした健一は、いつものように、出金を申請した。今度は、当面の生活費として、五十万円。だが、待てど暮らせど、口座には一円も着金しない。翌日、アプリには、見慣れないメッセージが表示されていた。「税務処理の都合により、出金には、保証金の入金が必要です」。追加で二百万円さえ払えば、増えた分を含めた全額を、すぐに出金できるのだという。おかしい。その時になって初めて、健一の背中に、冷たいものが走った。それでも、ここまで大金を入れてしまった以上、もう、引くに引けなかった。彼は言われるがまま、さらに二百万円を振り込んだ。その、直後だった。あれほど親身だった担当者からの返信が、ぷつりと、途絶えた。翌朝、いつものLINEの投資グループを開くと、画面にはただ一行、「このグループは存在しません」とだけ表示されていた。数百人いたはずのメンバーも、毎日届いていた分析も、すべてが、たった一夜のうちに消え去っていた。慌てて専用アプリを開くと、残高の数字だけが、何事もなかったかのように、静かに光っている。だが、その数字は、もう、どこにもつながってはいなかった。退職金も、会社の売却益も、四十年働いた全部が、ただの画面の光となって、健一の手の中に、むなしく残されていた。
+IMAGE_PROMPT: a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, sitting in a dark room in frozen shock staring at his smartphone showing a blank empty error screen, an expression of despair and disbelief, cold heavily desaturated low-key dramatic lighting, medium shot, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: 通知の消失音、静寂
+
+## SCENE 009 [zone: explanation]
+NARRATION: ここで、健一の身に起きたことを、少しだけ整理しておきたい。振り返れば、彼を守れたはずの分岐点は、実は、いくつもあった。その中でも決定的だったのは、たった一つの確認を、彼が最後までしなかったことだ。日本で、投資の勧誘や、他人の資金の運用を行う業者は、金融庁への登録が、法律で義務づけられている。そして、その登録された正規の業者の一覧は、金融庁のウェブサイトで、誰でも、無料で確認することができる。「金融庁、免許・許可・登録等を受けている業者一覧」と検索すれば、たどり着ける。逆に言えば、その一覧に名前のない相手には、決して、大切なお金を預けてはいけない。健一が広告を見た、あの最初の夜。あるいは、銀行の窓口に立った、あの朝。業者の名前を、この一覧でひとこと検索してさえいれば、登録がないという事実が、はっきりと、目の前に現れていたはずだった。SNSの広告に有名人が出ていても、それらしい公式マークがついていても、それは、登録の有無とは、何の関係もない。確認にかかる時間は、ほんのわずか、数分ほど。その数分を惜しんだことが、四十年分の蓄えとの、分かれ道になっていた。
+IMAGE_PROMPT: a clean informational illustration of a laptop screen showing an official financial regulator's registered-business list rendered as rows of plain placeholder bars instead of readable text, a magnifying glass over a search field, calm trustworthy mood, neutral even lighting, high clarity, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: なし
+
+## SCENE 010 [zone: explanation]
+NARRATION: そして、もう一つ。健一の判断を、根っこから狂わせたものがある。それは、詐欺の手口そのもの以上に、彼自身の心の中に、はじめから潜んでいた。「自分だけは、騙されない」という、あの強い思い込みである。人というのは、知識や経験がある分野ほど、かえって「自分だけは大丈夫だ」と考えやすくなる。これは過信バイアスと呼ばれ、程度の差こそあれ、誰の心にも備わっているものだ。むしろ、健一のように、仕事で成功体験を積み重ねてきた人ほど、このバイアスは、強く働いてしまう。そして皮肉なことに、詐欺を仕掛ける側は、この人間の心理を、知り尽くしている。だからこそ、最初にわざと、少額の出金を成功させ、「自分の目に、狂いはなかった」という確信を、相手に持たせるのだ。その確信が生まれた瞬間、人は、自分のほうから、疑うことをやめてしまう。だからこそ、覚えておいてほしい。「自分は大丈夫だ」と感じた、まさにその時こそが、いちばん危ういのだということを。家族や、身近な第三者が口にする違和感は、知識だけでは測れない危険を、しばしば、こちらより先に察している。その声を、「素人の心配」と切り捨ててしまわないこと。それはきっと、賢さではなく、自分自身を守るための、静かな謙虚さなのだ。
+IMAGE_PROMPT: a conceptual illustration of overconfidence bias, a human head silhouette with a concealed blind spot, an elderly Japanese man confidently walking toward a hidden trap, neutral even lighting, high clarity, symbolic editorial composition, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: なし
+
+## SCENE 011 [zone: checklist]
+NARRATION: 最後に、今日の話を、確認できる形にまとめておく。一つ、投資の話が来たら、まず業者名を金融庁の登録一覧で検索する。名前がなければ、それだけで手を引く。二つ、「元本保証」や「月利八パーセント」など、うますぎる条件は、それ自体が危険信号だと考える。三つ、少額の出金が成功しても、それを信用の理由にしない。四つ、家族や周りが「怪しい」と言ったら、一度立ち止まって、確認に時間を使う。そして五つ、「自分は騙されない」というその気持ちこそを、いちばん疑う。この五つを、どこかに書き留めておいてほしい。
+IMAGE_PROMPT: a clean checklist infographic with five empty checkboxes arranged vertically with simple icons beside each, senior-friendly simple layout, calm neutral tones, high clarity, flat design, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+SE: チェックマークの音
