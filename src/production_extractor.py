@@ -13,6 +13,16 @@ SCENE_HEADER_RE = re.compile(r"^## SCENE (\d{3}) \[zone: ([A-Za-z0-9_]+)\]$")
 TAG_RE = re.compile(r"^(NARRATION|SPEAKER|SE): (.*)$")
 CUT_RE = re.compile(r"^CUT (\d+): (.*)$")
 
+_HALFWIDTH_DIGITS_SYMBOLS = "0123456789%-:/+.,()!?"
+_FULLWIDTH_DIGITS_SYMBOLS = "０１２３４５６７８９％－：／＋．，（）！？"
+_FULLWIDTH_TABLE = str.maketrans(_HALFWIDTH_DIGITS_SYMBOLS, _FULLWIDTH_DIGITS_SYMBOLS)
+
+# DRAFT値・暫定リスト。固定ルールではない。誤検知・見逃し双方あり得る前提で
+# 人間判断を補助するためのフラグ立てに留める（自動変換・自動ブロックはしない）
+POLICY_RISK_KEYWORDS = [
+    "入浴", "お風呂", "着替え", "排泄", "排せつ", "おむつ", "点滴", "注射", "下着", "裸",
+]
+
 
 def parse_script(text: str):
     lines = text.splitlines()
@@ -185,6 +195,15 @@ def validate_cut_pacing(meta, scenes, genre_path: Path, warn):
             )
 
 
+def validate_policy_risk(scenes, warn):
+    for scene in scenes:
+        if any(kw in scene["narration"] for kw in POLICY_RISK_KEYWORDS):
+            warn(
+                f"[POLICY_CHECK] SCENE {scene['scene_id']}: ポリシーリスクの可能性。"
+                f"人間または高位モデルでの確認を推奨"
+            )
+
+
 def validate_image_prompts(scenes, warn):
     for scene in scenes:
         if not scene["cuts"]:
@@ -206,8 +225,12 @@ def validate_metrics_columns(metrics_path: Path, warn):
             warn(f"metrics.csvに列 '{col}' が見つかりません")
 
 
+def _to_fullwidth(text: str) -> str:
+    return text.translate(_FULLWIDTH_TABLE)
+
+
 def write_voice_plain_text(scenes, out_dir: Path):
-    text = "\n\n".join(scene["narration"] for scene in scenes)
+    text = "\n\n".join(_to_fullwidth(scene["narration"]) for scene in scenes)
     (out_dir / "voice_plain_text.txt").write_text(text, encoding="utf-8")
 
 
@@ -317,6 +340,7 @@ def main():
     validate_zone_char_budgets(meta, scenes, genre_path, warnings.append)
     validate_cut_pacing(meta, scenes, genre_path, warnings.append)
     validate_image_prompts(scenes, warnings.append)
+    validate_policy_risk(scenes, warnings.append)
     validate_metrics_columns(metrics_path, warnings.append)
 
     out_dir.mkdir(parents=True, exist_ok=True)
