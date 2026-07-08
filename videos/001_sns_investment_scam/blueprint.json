@@ -34,7 +34,7 @@
       "character_id": "P2",
       "name": "美和子",
       "role": "妻",
-      "locked_prompt_fragment": "a Japanese woman in her late 50s, shoulder-length greying hair, soft lavender knit cardigan",
+      "locked_prompt_fragment": "a Japanese woman in her late 50s, dark hair with visible grey streaks at the temples, soft lavender knit cardigan",
       "height_cm": 155
     }
   ],
@@ -42,12 +42,12 @@
     {
       "location_id": "LOC01",
       "name": "自宅リビング",
-      "locked_prompt_fragment": "a modest Japanese living room in the family's paid-off home, a sofa, a low table"
+      "locked_prompt_fragment": "a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf"
     },
     {
       "location_id": "LOC02",
       "name": "銀行窓口",
-      "locked_prompt_fragment": "a Japanese bank branch interior, a service counter with a teller window"
+      "locked_prompt_fragment": "a modern Japanese bank branch interior, glass partition counters, bright clean lighting, contemporary furniture, open airy layout"
     }
   ]
 }
