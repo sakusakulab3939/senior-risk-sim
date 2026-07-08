@@ -27,13 +27,15 @@
       "character_id": "P1",
       "name": "藤田健一",
       "role": "主人公",
-      "locked_prompt_fragment": "a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build"
+      "locked_prompt_fragment": "a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build",
+      "height_cm": 170
     },
     {
       "character_id": "P2",
       "name": "美和子",
       "role": "妻",
-      "locked_prompt_fragment": "a Japanese woman in her late 50s, shoulder-length greying hair, soft lavender knit cardigan"
+      "locked_prompt_fragment": "a Japanese woman in her late 50s, shoulder-length greying hair, soft lavender knit cardigan",
+      "height_cm": 155
     }
   ],
   "locations": [

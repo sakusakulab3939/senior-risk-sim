@@ -194,15 +194,27 @@
       "authoring": "locked_prompt_fragment の確定は人間の判断（ブランディング）。B-1の企画確定に畳み込む（人間判断3回=B-1/B-4/B-11の枠を増やさない）",
       "enforcement": "将来は production_extractor が [base_style_tag]+[locationのfragment]+[characterのfragment]+[シーン固有の演技]+[zone_color_grading]+[text_exclusion_guard] を機械連結する（案B）。これは2本目以降で実装（ADR-004の『次回作から』F/I項目）"
     },
+    "visual_cast_schema": {
+      "_note": "blueprint.json.visual_cast の各要素が持てるフィールドの定義。画像生成プロンプト（character_sheet_template等）に機械的に差し込まれるのは locked_prompt_fragment のみ",
+      "fields": {
+        "character_id": "識別子（例: P1）。ファイル名管理に使う（sheet_label_policy参照）",
+        "name": "人物名（表示・管理用）",
+        "role": "物語内の役割（表示・管理用）",
+        "locked_prompt_fragment": "画像生成プロンプトに一言一句そのまま使い回すトレイトロック文字列。必須",
+        "height_cm": "任意。数値（cm）の概算身長。画像生成プロンプト本文には混入させない。複数キャラが同時に登場するCUTを書く際、『PXはPYよりやや背が高い』のような相対的な自然文表現の参考値としてのみ使う"
+      }
+    },
     "character_sheet_template": {
-      "prompt": "character design sheet, full body three-view (front, side, back) on the left, four facial expressions (confident, uneasy, shocked, despairing) on the right, {locked_prompt_fragment}, white background, manga anime style, cel shading, crisp clean linework, controlled color palette",
+      "prompt": "character design sheet, full body three-view (front, side, back) on the left, four facial expressions (confident, uneasy, shocked, despairing) on the right, {locked_prompt_fragment}, white background, manga anime style, cel shading, crisp clean linework, controlled color palette, no text, no titles, no labels, no captions, no rulers, no measurement scale, no numeric labels, no annotation text, no watermarks, plain white background only",
+      "_status": "DRAFT - 初号生成テスト（nanobanana）で、タイトル・年齢表記・ビュー名ラベル・表情ラベル・目盛りなど大量の文字が画像内に焼き込まれる問題を確認（日本語見出しは完全に文字化け）。text_exclusion_guardはシーン専用（scope: scene_cut_only）でシートには付与しない設計だったが、『付けない』だけでは不十分と判明したため、promptの末尾に明示的な文字禁止句を追加した。visual_cast.height_cm（身長メタデータ）の追加に伴い、身長等の数値・定規・注記も画像内に描かれないよう禁止句をさらに具体化した。DRAFT解除条件＝この修正後の再テスト通過",
       "_expression_set_note": "DRAFT。risk_simの感情アーク（自信→不安→恐怖→絶望）に写像。旧仕様の汎用セット happy/surprised/crying/pained から変更。本セッションでOpus確定",
       "_three_view_note": "背面図(back)はシート＝人間の目視確認用の1枚絵には残す。生成時は各パネル（front/side/back/各表情）を個別の参照画像としてnanobananaに渡すため背面図も無駄にならない（ADR-004でKを『採用』に格上げ）。ただしパネル切り出しが参照画質として使えるよう、シートは高解像度で生成する（DRAFT: 2K以上目安）",
-      "_label_note": "画像内ラベルは付けない（sheet_label_policy）。text_exclusion_guardも付けない"
+      "_label_note": "画像内ラベルは付けない（sheet_label_policy）。text_exclusion_guard（scene_cut_only）は引き続き付与しないが、シート専用の明示的な文字禁止句をprompt末尾に直接埋め込んでいる（上記_status参照）"
     },
     "location_sheet_template": {
-      "prompt": "location design sheet, 2x2 grid layout, {location_name}, Panel 1 (establishing wide): {desc}, Panel 2 (medium): {desc}, Panel 3 (detail): {desc}, Panel 4 (alternate angle): {desc}, manga background style, cel shading, crisp clean linework, controlled color palette",
-      "_note": "画像内ラベル・text_exclusion_guardは付けない。ロケーションは単話完結のため小数（主人公宅・銀行窓口程度）"
+      "prompt": "location design sheet, 2x2 grid layout, {location_name}, Panel 1 (establishing wide): {desc}, Panel 2 (medium): {desc}, Panel 3 (detail): {desc}, Panel 4 (alternate angle): {desc}, manga background style, cel shading, crisp clean linework, controlled color palette, no text, no titles, no labels, no captions, no watermarks",
+      "_status": "DRAFT - character_sheet_templateと同一のnanobanana初号生成テストで文字焼き込みを確認。promptの末尾に明示的な文字禁止句を追加した。DRAFT解除条件＝この修正後の再テスト通過",
+      "_note": "画像内ラベルは付けない（sheet_label_policy）。text_exclusion_guard（scene_cut_only）は引き続き付与しないが、シート専用の明示的な文字禁止句をprompt末尾に直接埋め込んでいる（上記_status参照）。ロケーションは単話完結のため小数（主人公宅・銀行窓口程度）"
     },
     "application_timeline": {
       "immediate": "base_style_tag / zone_color_grading / text_exclusion_guard(scope) / sheet_label_policy は即時有効。1本目(001)にはIMAGE_PROMPTの軽量トレイトロックとして適用済み（ADR-004のE）",
