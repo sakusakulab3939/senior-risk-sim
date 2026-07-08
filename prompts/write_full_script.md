@@ -113,6 +113,25 @@ zone_char_budget   = zone_duration_sec / 60 * chars_per_min * effective_char_rat
 `blueprint.json.key_misjudgments` の各項目と対応させて時系列で積み重ねて描くこと。
 どのシーンがどの `key_misjudgments` 項目に対応するかが読んでわかる構成にする。
 
+### 7. カット分割（映像レイヤー）
+
+各シーンのNARRATIONは1つの連続したテキストとして書く（従来通り）。
+その上で、そのNARRATIONを表示している間に切り替わる画像を「カット」として
+複数指定する。カット数は以下で機械的に決める：
+
+```
+scene_estimated_sec = (そのシーンのNARRATION文字数) / (chars_per_min * effective_char_ratio) * 60
+target = risk_sim.json.visual_pacing.zone_overrides[zone_id].target_cut_sec
+         （無ければ visual_pacing.target_cut_sec）
+cut_count = round(scene_estimated_sec / target)   # 最低1
+```
+
+- `chars_per_min` = 417、`effective_char_ratio` = 0.85（`risk_sim.json` 正本）
+- カット数が1の場合はカットを1つだけ出力する（従来のシーンと同じ見た目になる）
+- 各カットには、NARRATIONのどの部分を読んでいる時に表示するかを意識して
+  IMAGE_PROMPTを書く。ただしNARRATIONテキスト自体は分割・改変しない
+- カットは時間的に前から順に並べる
+
 ---
 
 ## 出力フォーマット契約（厳守・Phase 0-5のPython抽出処理がこれをパースする）
@@ -132,6 +151,7 @@ explanation_layout: {blueprint.jsonのexplanation_layout}
 duration_mode: {blueprint.jsonのduration_mode}
 duration_sec: {手順1で決定した値}
 total_scenes: {シーン総数}
+total_cuts: {全シーンのカット数合計}
 zone_scene_counts:
   hook_ending_glimpse: {シーン数}
   daily_life: {シーン数}
@@ -156,16 +176,23 @@ zone_scene_counts:
 シーン見出しの直後に、行頭タグで要素を分けて書く。タグの出現順は固定：
 
 ```
-NARRATION: {ナレーション本文}
+NARRATION: {ナレーション本文。シーン全体で1つ。分割しない}
 SPEAKER: {話者名。ナレーターのみの場合はこの行自体を省略}
-IMAGE_PROMPT: {画像生成プロンプト。英語で1行}
 SE: {効果音の指定。無い場合はこの行自体を省略}
+CUT 1: {画像生成プロンプト。英語で1行}
+CUT 2: {画像生成プロンプト。英語で1行}
+...
 ```
 
+タグの出現順は固定：`NARRATION` → `SPEAKER`（任意）→ `SE`（任意）→ `CUT 1..N`
+
 - 各タグの値は同じ物理行の中に収める（改行を含めない）。1タグ＝1行。
-- `NARRATION:` は必須。この行の `NARRATION: ` 以降の文字数（前置き除く）を
-  `zone_char_budget` との照合対象とする
-- `IMAGE_PROMPT:` は必須。`SPEAKER:` と `SE:` は該当が無ければ行ごと省略可
+- `NARRATION:` は必須・シーンに1つ・分割しない。この行の `NARRATION: ` 以降の
+  文字数（前置き除く）を `zone_char_budget` との照合対象とする
+- `SPEAKER:` と `SE:` は該当が無ければ行ごと省略可
+- `CUT n:` は必須・最低1つ。`n` は1から始まる連番で、シーンごとにリセットする。
+  値は英語1行の画像生成プロンプト
+- `IMAGE_PROMPT:` タグは廃止。必ず `CUT n:` を使うこと
 - シーンとシーンの間は空行1行のみで区切る。空行を2行以上続けない
 
 ### 出力例（形式確認用。内容はダミー）
@@ -179,6 +206,7 @@ explanation_layout: trailing_block
 duration_mode: fast_validation
 duration_sec: 810
 total_scenes: 11
+total_cuts: 17
 zone_scene_counts:
   hook_ending_glimpse: 1
   daily_life: 2
@@ -190,13 +218,14 @@ zone_scene_counts:
 
 ## SCENE 001 [zone: hook_ending_glimpse]
 NARRATION: （本文）
-IMAGE_PROMPT: (english prompt)
+CUT 1: (english prompt)
 
 ## SCENE 002 [zone: daily_life]
 NARRATION: （本文）
 SPEAKER: ナレーター
-IMAGE_PROMPT: (english prompt)
 SE: 生活音
+CUT 1: (english prompt)
+CUT 2: (english prompt)
 ```
 
 ---
@@ -210,3 +239,6 @@ SE: 生活音
 - `explanation_layout` に応じた配置切り替えが行われているか
 - `key_misjudgments` の3項目すべてが `misjudgment_accumulation` ゾーンに対応しているか
 - シーン見出し・行頭タグの表記が上記フォーマット契約と1文字も違わないか
+- 各シーンにCUTが最低1つあるか。`IMAGE_PROMPT:` タグが残っていないか
+- メタブロックの `total_cuts` が全シーンのカット数合計と一致しているか
+- 各シーンのカット数が手順7の `cut_count` の計算値とおおむね一致しているか（±1程度は可）

@@ -10,7 +10,8 @@ for stream in (sys.stdout, sys.stderr):
         stream.reconfigure(encoding="utf-8")
 
 SCENE_HEADER_RE = re.compile(r"^## SCENE (\d{3}) \[zone: ([A-Za-z0-9_]+)\]$")
-TAG_RE = re.compile(r"^(NARRATION|SPEAKER|IMAGE_PROMPT|SE): (.*)$")
+TAG_RE = re.compile(r"^(NARRATION|SPEAKER|SE): (.*)$")
+CUT_RE = re.compile(r"^CUT (\d+): (.*)$")
 
 
 def parse_script(text: str):
@@ -72,24 +73,28 @@ def _parse_scenes(lines):
                 "zone_id": header.group(2),
                 "narration": "",
                 "speaker": "ナレーター",
-                "image_prompt": "",
+                "cuts": [],
                 "se": "",
             }
             continue
         if current is None:
             continue
         tag = TAG_RE.match(line)
-        if not tag:
+        if tag:
+            name, value = tag.group(1), tag.group(2)
+            if name == "NARRATION":
+                current["narration"] = value
+            elif name == "SPEAKER":
+                current["speaker"] = value
+            elif name == "SE":
+                current["se"] = value
             continue
-        name, value = tag.group(1), tag.group(2)
-        if name == "NARRATION":
-            current["narration"] = value
-        elif name == "SPEAKER":
-            current["speaker"] = value
-        elif name == "IMAGE_PROMPT":
-            current["image_prompt"] = value
-        elif name == "SE":
-            current["se"] = value
+        cut = CUT_RE.match(line)
+        if cut:
+            current["cuts"].append(cut.group(2))
+            continue
+        if line.startswith("IMAGE_PROMPT: "):
+            current["cuts"].append(line[len("IMAGE_PROMPT: "):])
     if current:
         scenes.append(current)
     return scenes
@@ -142,10 +147,52 @@ def validate_zone_char_budgets(meta, scenes, genre_path, warn):
             )
 
 
+def validate_cut_pacing(meta, scenes, genre_path: Path, warn):
+    duration_sec = meta.get("duration_sec")
+    if duration_sec is None:
+        return
+    if not genre_path.exists():
+        return
+    genre = json.loads(genre_path.read_text(encoding="utf-8"))
+    visual_pacing = genre.get("visual_pacing")
+    if not visual_pacing:
+        return
+
+    chars_per_min = genre["narration_speed"]["chars_per_min"]
+    ratio = genre["narration_speed"]["effective_char_ratio"]
+    default_min = visual_pacing.get("min_cut_sec")
+    default_max = visual_pacing.get("max_cut_sec")
+    zone_overrides = visual_pacing.get("zone_overrides", {})
+
+    for scene in scenes:
+        override = zone_overrides.get(scene["zone_id"], {})
+        zone_min = override.get("min_cut_sec", default_min)
+        zone_max = override.get("max_cut_sec", default_max)
+
+        estimated_sec = len(scene["narration"]) / (chars_per_min * ratio) * 60
+        cut_count = len(scene["cuts"]) or 1
+        sec_per_cut = estimated_sec / cut_count
+
+        if zone_max is not None and sec_per_cut > zone_max * 1.5:
+            warn(
+                f"SCENE {scene['scene_id']}: 1カットあたり{sec_per_cut:.1f}秒でカットが粗い"
+                f"（上限目安{zone_max}秒の1.5倍を超過）"
+            )
+        if zone_min is not None and sec_per_cut < zone_min * 0.5 and estimated_sec > zone_min:
+            warn(
+                f"SCENE {scene['scene_id']}: 1カットあたり{sec_per_cut:.1f}秒でカットが細かすぎる"
+                f"（下限目安{zone_min}秒の0.5倍未満）"
+            )
+
+
 def validate_image_prompts(scenes, warn):
     for scene in scenes:
-        if not scene["image_prompt"].strip():
-            warn(f"SCENE {scene['scene_id']}: IMAGE_PROMPTが空です")
+        if not scene["cuts"]:
+            warn(f"SCENE {scene['scene_id']}: CUTが1つもありません")
+            continue
+        for i, cut_prompt in enumerate(scene["cuts"], start=1):
+            if not cut_prompt.strip():
+                warn(f"SCENE {scene['scene_id']} CUT {i}: 画像プロンプトが空です")
 
 
 def validate_metrics_columns(metrics_path: Path, warn):
@@ -175,7 +222,14 @@ def write_voice_assignment_csv(scenes, out_dir: Path):
 def write_image_prompts(scenes, out_dir: Path):
     data = {
         "scenes": [
-            {"scene_id": s["scene_id"], "zone_id": s["zone_id"], "image_prompt": s["image_prompt"]}
+            {
+                "scene_id": s["scene_id"],
+                "zone_id": s["zone_id"],
+                "cuts": [
+                    {"cut_id": f"{s['scene_id']}-{i:02d}", "image_prompt": prompt}
+                    for i, prompt in enumerate(s["cuts"], start=1)
+                ],
+            }
             for s in scenes
         ]
     }
@@ -261,6 +315,7 @@ def main():
     warnings = []
     validate_total_scenes(meta, scenes, warnings.append)
     validate_zone_char_budgets(meta, scenes, genre_path, warnings.append)
+    validate_cut_pacing(meta, scenes, genre_path, warnings.append)
     validate_image_prompts(scenes, warnings.append)
     validate_metrics_columns(metrics_path, warnings.append)
 

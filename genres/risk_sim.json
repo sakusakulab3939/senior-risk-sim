@@ -24,6 +24,25 @@
     "effective_char_ratio_note": "417字/分は連続読み上げの理論値。実際の台本には話者切替・間（ま）・SEポーズ・BGMブリッジの無音区間が入るため、実効値として0.85を掛ける。これがないと推定尺が常に楽観側にズレ、B-3の構造バリデーションとB-10編集で尺超過が発覚する。再検証で更新可"
   },
 
+  "visual_pacing": {
+    "_status": "DRAFT - 秒数はユーザーの実務感覚ベース。根拠データなし。初期10本のmetrics実測後に見直す",
+    "target_cut_sec": 14,
+    "min_cut_sec": 8,
+    "max_cut_sec": 20,
+    "cut_count_method": "scene_estimated_sec / target_cut_sec を四捨五入。最低1カット。scene_estimated_sec = scene_narration_chars / (chars_per_min * effective_char_ratio) * 60",
+    "note": "カットはシーンの下位単位。物語構造（zone/scene/文字数予算）には一切影響しない純粋な映像レイヤー。1シーンのNARRATIONは連続した1テキストのまま保持し、その上に画像切り替えタイミングを割り当てる",
+    "zone_overrides": {
+      "_note": "ゾーンによって望ましいカット間隔が異なる場合のみ上書きする。未指定ゾーンはtarget_cut_secを使う。DRAFT値",
+      "hook_ending_glimpse": {
+        "target_cut_sec": 5,
+        "_target_cut_sec_note": "DRAFT・根拠なし。3〜8秒程度の想定で暫定5秒。このゾーンは冒頭の静止画をアニメーション化（動きをつける演出）する前提のため、他ゾーンより明確に短いテンポでカットを刻む。全体min_cut_sec(8)を下回る点は意図的（このゾーン限定の演出方針）。初期10本のmetrics実測後に見直す"
+      },
+      "crisis_regret": { "target_cut_sec": 12 },
+      "explanation": { "target_cut_sec": 16 },
+      "checklist": { "target_cut_sec": 20 }
+    }
+  },
+
   "zones": [
     {
       "zone_id": "hook_ending_glimpse",
