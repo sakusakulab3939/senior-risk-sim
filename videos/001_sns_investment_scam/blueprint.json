@@ -21,5 +21,31 @@
     "「元経営者だから大丈夫」という慢心を煽るコピー＋青ざめた表情",
     "スマホの残高画面（伸び続ける数字）の下に差す暗い影",
     "なりすまし広告のスクショ風ビジュアル＋「その広告、あなたも見た」"
+  ],
+  "visual_cast": [
+    {
+      "character_id": "P1",
+      "name": "藤田健一",
+      "role": "主人公",
+      "locked_prompt_fragment": "a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build"
+    },
+    {
+      "character_id": "P2",
+      "name": "美和子",
+      "role": "妻",
+      "locked_prompt_fragment": "a Japanese woman in her late 50s, shoulder-length greying hair, soft lavender knit cardigan"
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "LOC01",
+      "name": "自宅リビング",
+      "locked_prompt_fragment": "a modest Japanese living room in the family's paid-off home, a sofa, a low table"
+    },
+    {
+      "location_id": "LOC02",
+      "name": "銀行窓口",
+      "locked_prompt_fragment": "a Japanese bank branch interior, a service counter with a teller window"
+    }
   ]
 }
