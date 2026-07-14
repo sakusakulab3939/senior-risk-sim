@@ -299,6 +299,101 @@ def write_metadata_draft(blueprint: dict, out_dir: Path):
     )
 
 
+QUOTE_RE = re.compile(r"「(.*?)」")
+
+# DRAFT値・暫定リスト。人物名の表記ゆれを網羅したものではない。
+# 話者推測は前後1文の文脈一致による簡易ヒューリスティックであり、
+# 誤判定を前提として「不明（要確認）」への逃がしを優先する設計とする
+SPEAKER_KEYWORDS = {
+    "健一": ["藤田健一", "健一"],
+    "美和子": ["美和子", "妻"],
+    "銀行員": ["行員"],
+}
+
+
+def _split_narration_dialogue(narration: str):
+    parts = []
+    pos = 0
+    for m in QUOTE_RE.finditer(narration):
+        before = narration[pos:m.start()]
+        if before:
+            parts.append(("narration", before))
+        parts.append(("dialogue", m.group(1)))
+        pos = m.end()
+    tail = narration[pos:]
+    if tail:
+        parts.append(("narration", tail))
+    return parts
+
+
+def _nearest_narration(parts, index, step):
+    j = index + step
+    while 0 <= j < len(parts):
+        kind, text = parts[j]
+        if kind == "narration":
+            return text
+        j += step
+    return ""
+
+
+def _last_sentence(text: str) -> str:
+    for s in reversed(text.split("。")):
+        if s.strip():
+            return s
+    return ""
+
+
+def _first_sentence(text: str) -> str:
+    for s in text.split("。"):
+        if s.strip():
+            return s
+    return ""
+
+
+def _match_speaker_labels(text: str):
+    labels = set()
+    for label, keywords in SPEAKER_KEYWORDS.items():
+        if any(kw in text for kw in keywords):
+            labels.add(label)
+    return labels
+
+
+def _guess_speaker(before_text: str, after_text: str):
+    before_labels = _match_speaker_labels(_last_sentence(before_text))
+    if len(before_labels) == 1:
+        return next(iter(before_labels))
+    after_labels = _match_speaker_labels(_first_sentence(after_text))
+    if len(after_labels) == 1:
+        return next(iter(after_labels))
+    return None
+
+
+def extract_dialogue_breakdown(scenes) -> str:
+    lines = [
+        "これは機械推測によるドラフトです。人間による目視確認・修正が必要です。",
+        "",
+    ]
+    for scene in scenes:
+        lines.append(f"## SCENE {scene['scene_id']}")
+        parts = _split_narration_dialogue(scene["narration"])
+        for i, (kind, text) in enumerate(parts):
+            if kind == "narration":
+                lines.append(f"[ナレーション]: {text}")
+            else:
+                before_text = _nearest_narration(parts, i, -1)
+                after_text = _nearest_narration(parts, i, 1)
+                speaker = _guess_speaker(before_text, after_text)
+                label = f"{speaker}セリフ" if speaker else "不明（要確認）"
+                lines.append(f"[{label}]: {text}")
+        lines.append("")
+    return "\n".join(lines).rstrip("\n") + "\n"
+
+
+def write_dialogue_breakdown(scenes, video_dir: Path):
+    text = extract_dialogue_breakdown(scenes)
+    (video_dir / "voice_speaker_breakdown.md").write_text(text, encoding="utf-8")
+
+
 def write_thumbnail_prompts(blueprint: dict, out_dir: Path):
     directions = blueprint.get("thumbnail_direction", [])[:3]
     data = {
@@ -349,6 +444,7 @@ def main():
     write_image_prompts(scenes, out_dir)
     write_metadata_draft(blueprint, out_dir)
     write_thumbnail_prompts(blueprint, out_dir)
+    write_dialogue_breakdown(scenes, video_dir)
 
     for w in warnings:
         print(f"[WARNING] {w}", file=sys.stderr)
