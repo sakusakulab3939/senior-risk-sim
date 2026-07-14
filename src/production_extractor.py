@@ -310,6 +310,60 @@ SPEAKER_KEYWORDS = {
     "銀行員": ["行員"],
 }
 
+# visual_castに登録が無い脇役ラベルについて、image_prompt本文中の役割語から
+# 該当CUTを検索するためのキーワード（DRAFT値・暫定リスト）
+ROLE_SEARCH_TERMS = {
+    "銀行員": ["bank teller"],
+}
+
+_GENDER_PATTERNS = [
+    ("女性", re.compile(r"\b(woman|female)\b", re.IGNORECASE)),
+    ("男性", re.compile(r"\b(man|male)\b", re.IGNORECASE)),
+]
+
+
+def _detect_gender(text: str):
+    for label, pattern in _GENDER_PATTERNS:
+        if pattern.search(text):
+            return label
+    return None
+
+
+def _find_visual_cast_entry(label: str, blueprint: dict):
+    for entry in blueprint.get("visual_cast", []):
+        name = entry.get("name", "")
+        if label in name or name in label:
+            return entry
+    return None
+
+
+def _find_role_gender(scenes, terms):
+    for scene in scenes:
+        for cut_text in scene["cuts"]:
+            if any(term.lower() in cut_text.lower() for term in terms):
+                gender = _detect_gender(cut_text)
+                if gender:
+                    return scene["scene_id"], gender
+    return None, None
+
+
+def build_speaker_gender_summary(scenes, blueprint: dict) -> list:
+    lines = ["## 話者一覧（画像プロンプトから抽出した性別情報）"]
+    for label in SPEAKER_KEYWORDS:
+        cast_entry = _find_visual_cast_entry(label, blueprint)
+        if cast_entry:
+            gender = _detect_gender(cast_entry.get("locked_prompt_fragment", "")) or "不明（要確認）"
+            lines.append(f"- {label}：{gender}（{cast_entry['character_id']}、visual_cast参照）")
+            continue
+        terms = ROLE_SEARCH_TERMS.get(label)
+        scene_id, gender = _find_role_gender(scenes, terms) if terms else (None, None)
+        if gender:
+            lines.append(f"- {label}：{gender}（SCENE {scene_id} CUT該当箇所の記述より）")
+        else:
+            lines.append(f"- {label}：不明（要確認）")
+    lines.append("")
+    return lines
+
 
 def _split_narration_dialogue(narration: str):
     parts = []
@@ -368,11 +422,12 @@ def _guess_speaker(before_text: str, after_text: str):
     return None
 
 
-def extract_dialogue_breakdown(scenes) -> str:
+def extract_dialogue_breakdown(scenes, blueprint: dict) -> str:
     lines = [
         "これは機械推測によるドラフトです。人間による目視確認・修正が必要です。",
         "",
     ]
+    lines.extend(build_speaker_gender_summary(scenes, blueprint))
     for scene in scenes:
         lines.append(f"## SCENE {scene['scene_id']}")
         parts = _split_narration_dialogue(scene["narration"])
@@ -389,8 +444,8 @@ def extract_dialogue_breakdown(scenes) -> str:
     return "\n".join(lines).rstrip("\n") + "\n"
 
 
-def write_dialogue_breakdown(scenes, video_dir: Path):
-    text = extract_dialogue_breakdown(scenes)
+def write_dialogue_breakdown(scenes, blueprint: dict, video_dir: Path):
+    text = extract_dialogue_breakdown(scenes, blueprint)
     (video_dir / "voice_speaker_breakdown.md").write_text(text, encoding="utf-8")
 
 
@@ -444,7 +499,7 @@ def main():
     write_image_prompts(scenes, out_dir)
     write_metadata_draft(blueprint, out_dir)
     write_thumbnail_prompts(blueprint, out_dir)
-    write_dialogue_breakdown(scenes, video_dir)
+    write_dialogue_breakdown(scenes, blueprint, video_dir)
 
     for w in warnings:
         print(f"[WARNING] {w}", file=sys.stderr)
