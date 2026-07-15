@@ -391,11 +391,13 @@ def write_image_prompts(scenes, blueprint: dict, visual_sheets_dir: Path, out_di
 SCENE_BLOCK_FILLS = ("FFFFFF", "F2F2F2")
 
 
-def write_image_generation_worklist(image_prompts_data: dict, xlsx_path: Path):
+def write_image_generation_worklist(image_prompts_data: dict, visual_sheets_dir: Path, xlsx_path: Path):
     """image_prompts_final.json相当のデータから、画像生成の手作業用Excelを作る"""
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
     from openpyxl.utils import get_column_letter
+
+    sheet_index = _build_sheet_index(visual_sheets_dir)
 
     wb = Workbook()
     ws = wb.active
@@ -406,18 +408,26 @@ def write_image_generation_worklist(image_prompts_data: dict, xlsx_path: Path):
         "cut_id",
         "zone_id",
         "画像No",
-        "reference_sheet_files",
+        "キャラクターシート",
+        "ロケーションシート",
         "image_prompt",
         "notes",
         "生成済み",
     ]
     ws.append(headers)
+
+    thin_side = Side(style="thin", color="B7B7B7")
+    medium_side = Side(style="medium", color="444444")
+    thin_border = Border(left=thin_side, right=thin_side, top=thin_side, bottom=thin_side)
+    scene_top_border = Border(left=thin_side, right=thin_side, top=medium_side, bottom=thin_side)
+
     for cell in ws[1]:
         cell.font = Font(bold=True)
+        cell.border = thin_border
     ws.freeze_panes = "A2"
 
-    scene_top_border = Border(top=Side(style="medium", color="444444"))
-    no_wrap_top = Alignment(wrap_text=False, vertical="top")
+    default_align = Alignment(wrap_text=False, vertical="top")
+    char_sheet_align = Alignment(wrap_text=True, vertical="top")
 
     row = 2
     seq = 1
@@ -431,12 +441,17 @@ def write_image_generation_worklist(image_prompts_data: dict, xlsx_path: Path):
         )
         for cut in scene["cuts"]:
             is_scene_start = scene["scene_id"] != prev_scene_id
+            character_sheet_files = [
+                sheet_index[cid] for cid in cut["character_refs"] if cid in sheet_index
+            ]
+            location_sheet_file = sheet_index.get(cut["location_ref"], "") if cut["location_ref"] else ""
             values = [
                 scene["scene_id"],
                 cut["cut_id"],
                 scene["zone_id"],
                 seq,
-                ", ".join(cut["reference_sheet_files"]),
+                "\n".join(character_sheet_files),
+                location_sheet_file,
                 cut["image_prompt"],
                 cut["notes"],
                 "",
@@ -444,14 +459,15 @@ def write_image_generation_worklist(image_prompts_data: dict, xlsx_path: Path):
             for col, value in enumerate(values, start=1):
                 cell = ws.cell(row=row, column=col, value=value)
                 cell.fill = fill
-                cell.alignment = no_wrap_top
-                if is_scene_start:
-                    cell.border = scene_top_border
+                cell.alignment = char_sheet_align if col == 5 else default_align
+                cell.border = scene_top_border if is_scene_start else thin_border
+            if len(character_sheet_files) > 1:
+                ws.row_dimensions[row].height = 14 * len(character_sheet_files)
             prev_scene_id = scene["scene_id"]
             seq += 1
             row += 1
 
-    widths = {1: 10, 2: 10, 3: 22, 4: 8, 5: 32, 6: 100, 7: 32, 8: 10}
+    widths = {1: 10, 2: 10, 3: 22, 4: 8, 5: 18, 6: 18, 7: 100, 8: 32, 9: 10}
     for col, width in widths.items():
         ws.column_dimensions[get_column_letter(col)].width = width
 
@@ -694,7 +710,9 @@ def main():
     write_voice_plain_text(scenes, out_dir)
     write_voice_assignment_csv(scenes, out_dir)
     image_prompts_data = write_image_prompts(scenes, blueprint, video_dir / "visual_sheets", out_dir)
-    write_image_generation_worklist(image_prompts_data, video_dir / "image_generation_worklist.xlsx")
+    write_image_generation_worklist(
+        image_prompts_data, video_dir / "visual_sheets", video_dir / "image_generation_worklist.xlsx"
+    )
     write_metadata_draft(blueprint, out_dir)
     write_thumbnail_prompts(blueprint, out_dir)
     write_dialogue_breakdown(scenes, blueprint, video_dir)
