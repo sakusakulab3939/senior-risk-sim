@@ -242,20 +242,146 @@ def write_voice_assignment_csv(scenes, out_dir: Path):
             writer.writerow([scene["scene_id"], scene["zone_id"], scene["speaker"]])
 
 
-def write_image_prompts(scenes, out_dir: Path):
-    data = {
-        "scenes": [
-            {
-                "scene_id": s["scene_id"],
-                "zone_id": s["zone_id"],
-                "cuts": [
-                    {"cut_id": f"{s['scene_id']}-{i:02d}", "image_prompt": prompt}
-                    for i, prompt in enumerate(s["cuts"], start=1)
-                ],
-            }
-            for s in scenes
-        ]
+WORD_RE = re.compile(r"[A-Za-z]+")
+
+# image_prompt本文が抽象図解（キャラクター/ロケーションを意図的に適用しないカット）
+# であることを示すマーカー句。DRAFT値・暫定リスト
+ABSTRACT_DIAGRAM_MARKERS = [
+    "informational illustration",
+    "conceptual illustration",
+    "editorial illustration",
+    "checklist infographic",
+]
+
+# 特徴語抽出から除外する一般的な機能語（前置詞・冠詞・接続詞等）。
+# これらはlocked_prompt_fragment間でたまたま非対称に出現するだけで、
+# キャラクター/ロケーションを識別する特徴語ではないため除外する
+STOPWORDS = {
+    "the", "and", "for", "are", "but", "not", "all", "any", "can", "had", "has",
+    "was", "one", "our", "out", "she", "too", "use", "with", "this", "that",
+    "from", "they", "will", "there", "their", "what", "about", "which", "when",
+    "make", "just", "into", "over", "after", "also", "been", "being", "both",
+    "down", "each", "few", "have", "here", "how", "its", "itself", "more",
+    "most", "other", "same", "such", "than", "very", "him", "himself", "who",
+    "whom", "these", "those", "were", "off", "own", "only", "under", "until",
+    "while", "above", "below", "between", "during", "before", "again",
+    "further", "once", "nor", "onto", "upon", "near", "toward", "towards",
+    "within", "without", "against", "among", "along", "around", "because",
+    "behind", "beneath", "beside", "besides", "despite", "except", "inside",
+    "instead", "outside", "per", "plus", "regarding", "since", "though",
+    "throughout", "unless", "unlike", "versus", "via", "whereas", "yet",
+    # 全カット共通の様式ボイラープレート／照明技法語との衝突を避けるため除外。
+    # 例："clean"は"crisp clean linework"（全カット共通の描画スタイル指定）で
+    # 毎回出現し、"low"は"low-key ... lighting"（照明トーン指定）で頻出するため、
+    # ロケーション判定の特徴語としては機能しない
+    "low", "clean",
+}
+
+
+def _extract_words(text: str) -> set:
+    return {
+        w.lower()
+        for w in WORD_RE.findall(text)
+        if len(w) >= 3 and w.lower() not in STOPWORDS
     }
+
+
+def _distinctive_terms(entries: list, id_key: str, fragment_key: str) -> dict:
+    """各entryのlocked_prompt_fragmentから、他entryと重複しない特徴語集合を抽出する"""
+    word_sets = {e[id_key]: _extract_words(e.get(fragment_key, "")) for e in entries}
+    distinctive = {}
+    for eid, words in word_sets.items():
+        others = set()
+        for other_id, other_words in word_sets.items():
+            if other_id != eid:
+                others |= other_words
+        distinctive[eid] = words - others
+    return distinctive
+
+
+def _is_abstract_diagram(text: str) -> bool:
+    lowered = text.lower()
+    return any(marker in lowered for marker in ABSTRACT_DIAGRAM_MARKERS)
+
+
+def _classify_cut_references(text: str, char_distinctive: dict, loc_distinctive: dict):
+    if _is_abstract_diagram(text):
+        return [], None, "抽象図解のためキャラクター/ロケーションのシート参照は不要"
+
+    text_words = _extract_words(text)
+
+    # character_refs: 特徴語が複数（2語以上）含まれていれば一致とみなす
+    character_refs = [
+        cid for cid, terms in char_distinctive.items() if len(terms & text_words) >= 2
+    ]
+
+    # location_ref: 最も一致数の多いロケーションを採用（1語でも一致していれば候補）
+    location_ref = None
+    best_hits = 0
+    for lid, terms in loc_distinctive.items():
+        hits = len(terms & text_words)
+        if hits > best_hits:
+            location_ref, best_hits = lid, hits
+
+    notes_parts = []
+    if not character_refs and not location_ref:
+        notes_parts.append("キャラクター/ロケーションいずれの特徴語も検出できず（判定不可）")
+    elif not location_ref:
+        notes_parts.append("地の文に場所描写なし（ロケーション判定不可）")
+
+    lowered = text.lower()
+    for label, terms in ROLE_SEARCH_TERMS.items():
+        if any(t.lower() in lowered for t in terms):
+            notes_parts.append(f"visual_cast未登録の脇役「{label}」が登場（シート参照対象外）")
+
+    return character_refs, location_ref, "；".join(notes_parts)
+
+
+def _build_sheet_index(visual_sheets_dir: Path) -> dict:
+    """visual_sheets配下のPNGファイル名から character_id/location_id -> ファイル名 を作る"""
+    index = {}
+    if not visual_sheets_dir.exists():
+        return index
+    for f in sorted(visual_sheets_dir.glob("*.png")):
+        m = re.match(r"^([A-Za-z0-9]+)_", f.name)
+        if m:
+            index[m.group(1)] = f.name
+    return index
+
+
+def write_image_prompts(scenes, blueprint: dict, visual_sheets_dir: Path, out_dir: Path):
+    char_distinctive = _distinctive_terms(
+        blueprint.get("visual_cast", []), "character_id", "locked_prompt_fragment"
+    )
+    loc_distinctive = _distinctive_terms(
+        blueprint.get("locations", []), "location_id", "locked_prompt_fragment"
+    )
+    sheet_index = _build_sheet_index(visual_sheets_dir)
+
+    data = {"scenes": []}
+    for s in scenes:
+        cuts = []
+        for i, prompt in enumerate(s["cuts"], start=1):
+            character_refs, location_ref, notes = _classify_cut_references(
+                prompt, char_distinctive, loc_distinctive
+            )
+            reference_sheet_files = [
+                sheet_index[cid] for cid in character_refs if cid in sheet_index
+            ]
+            if location_ref and location_ref in sheet_index:
+                reference_sheet_files.append(sheet_index[location_ref])
+            cuts.append(
+                {
+                    "cut_id": f"{s['scene_id']}-{i:02d}",
+                    "image_prompt": prompt,
+                    "character_refs": character_refs,
+                    "location_ref": location_ref,
+                    "reference_sheet_files": reference_sheet_files,
+                    "notes": notes,
+                }
+            )
+        data["scenes"].append({"scene_id": s["scene_id"], "zone_id": s["zone_id"], "cuts": cuts})
+
     (out_dir / "image_prompts_final.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -496,7 +622,7 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     write_voice_plain_text(scenes, out_dir)
     write_voice_assignment_csv(scenes, out_dir)
-    write_image_prompts(scenes, out_dir)
+    write_image_prompts(scenes, blueprint, video_dir / "visual_sheets", out_dir)
     write_metadata_draft(blueprint, out_dir)
     write_thumbnail_prompts(blueprint, out_dir)
     write_dialogue_breakdown(scenes, blueprint, video_dir)

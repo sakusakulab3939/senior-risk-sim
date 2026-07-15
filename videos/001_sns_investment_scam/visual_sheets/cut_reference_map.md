@@ -1,3 +1,7 @@
+> **このファイルは非推奨です。** `image_prompts_final.json` の `reference_sheet_files`
+> フィールドに統合されました。以後の参照はそちらを正本としてください。
+> このファイルは過去の経緯（判定方法の試行錯誤の記録）として残しています。
+
 # CUT参照画像対応表（001_sns_investment_scam）
 
 `FINAL_SCRIPT_FULL.md` の各SCENE/CUTのプロンプト本文を読み、`blueprint.json` の
