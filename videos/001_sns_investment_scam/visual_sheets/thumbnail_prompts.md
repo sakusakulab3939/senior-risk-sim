@@ -11,11 +11,22 @@
 > **注記**：案2は `metadata_final.json` の確定タイトルに更新済み。案1・案3は
 > 引き続きmetadata_draft.jsonの候補から参照（B-6後の見直しは案2のみ実施）。
 
+## サムネ生成時の参照画像について
+
+**重要**：nanobanana で段階1プロンプトを実行する際は、必ず以下のキャラクターシート
+を参照画像として添付すること。プロンプト本文の `locked_prompt_fragment` はテキスト側の
+保険であり、視覚的なトレイトロック（髪型・眼鏡・衣装の一貫性）を確保するには、
+参照画像添付が本体である。
+
+参照画像：`videos/001_sns_investment_scam/visual_sheets/P1_fujita_kenichi.png`
+
 ---
 
 ## 案1：「元経営者だから大丈夫」という慢心を煽るコピー＋青ざめた表情
 
 ### 段階1（nanobanana／文字なし）
+
+**参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
 a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, an extreme close-up on his pale shocked face frozen in dread, wide fearful eyes contrasting with his confident business-owner bearing, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, cold desaturated dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
@@ -42,6 +53,8 @@ underlying image, character appearance, or background — add text only.
 
 #### 段階1（nanobanana／文字なし）
 
+**参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
+
 a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, his hand holding a smartphone glowing with a rising balance graph with no legible content, a dark ominous shadow creeping up from beneath the phone across his face, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, cold heavily desaturated low-key dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
 #### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
@@ -63,7 +76,15 @@ underlying image, character appearance, or background — add text only.
 
 #### 段階1（nanobanana／文字なし）
 
-split-screen composition: left side shows a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, with a confident, self-assured smug expression and bright direct gaze, standing in a warm traditional Japanese living room with tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting; right side shows the same man with a pale, shell-shocked, devastated expression, eyes wide with dread and realization, in the same setting with cold desaturated dramatic lighting and ominous shadows; both sides clearly delineated by a subtle vertical dividing line or gradient transition, softly blurred background, 16:9 landscape thumbnail composition, subjects large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+**参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
+
+split-screen composition with dramatic left-right contrast: 
+
+LEFT SIDE (self-assured before): a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, viewed from a slightly upward angle emphasizing strength and confidence, with a proud, smug, self-assured expression and bright direct gaze, bathed in warm golden-orange lighting, standing in a bright, prosperous-looking warm traditional Japanese living room with tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned mood lighting, family photos on shelf, and background details including framed company founder certificates, a formal letter envelope (retirement lump sum notification), and a piggy bank or safe, softly blurred warm background;
+
+RIGHT SIDE (devastated after): the same man viewed from a slightly downward camera angle emphasizing weakness and defeat, with a pale, ashen, shell-shocked, devastated expression, eyes hollow and wide with dread and realization of loss, bathed in cold blue-cyan harsh lighting, in the same room now rendered in cold desaturated tones, ominous deep shadows creeping across his face and body, with background elements now darkened and sinister including the glow of a smartphone screen casting eerie light on his features, and the room itself appearing claustrophobic and trap-like, softly blurred cold background;
+
+both sides clearly delineated by a sharp vertical dividing line or dramatic lighting gradient transition at center, emphasizing the psychological rupture between before and after, 16:9 landscape thumbnail composition, subjects large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework with exaggerated emotional contrast, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
 #### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
 
@@ -74,6 +95,8 @@ split-screen composition: left side shows a Japanese man in his early 60s, short
 ### パターン2-v2-3：視線誘導型（手のクローズアップ）
 
 #### 段階1（nanobanana／文字なし）
+
+**参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
 close-up focus on a Japanese man's hand in his early 60s holding a smartphone, the phone screen glowing brightly with a rising balance graph with no legible content, the smartphone dominating the lower-middle portion of the frame, soft warm lighting on the hand and device, while in the softly blurred background above and behind the phone, the same man's face is visible but out of focus, showing an anxious, worried, uncertain expression with furrowed brow and pursed lips contrasting with the bright promise of the glowing screen, a warm traditional Japanese living room setting visible but unfocused, cold desaturated dramatic lighting in the background, 16:9 landscape thumbnail composition, layered depth from sharp phone in foreground to soft face in background, framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
@@ -86,6 +109,8 @@ close-up focus on a Japanese man's hand in his early 60s holding a smartphone, t
 ## 案3：なりすまし広告のスクショ風ビジュアル＋「その広告、あなたも見た」
 
 ### 段階1（nanobanana／文字なし）
+
+**参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
 a mock investment advertisement screenshot-style graphic featuring a smiling celebrity investor portrait and a fake verified checkmark badge, with rows of plain placeholder bars instead of readable text, a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, softly out of focus in the background holding a smartphone displaying the advertisement, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, slightly cool dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
