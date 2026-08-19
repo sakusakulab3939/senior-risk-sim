@@ -33,24 +33,53 @@ underlying image, character appearance, or background — add text only.
 
 ---
 
-## 案2：スマホの残高画面（伸び続ける数字）の下に差す暗い影
+## 案2：スマホの残高画面（伸び続ける数字）の下に差す暗い影——3パターン構成
 
-### 段階1（nanobanana／文字なし）
+案2は、metadata_final.json の confirmed_title 「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴 をベースに、
+段階1で3つの異なる構図・演出パターンを用意し、段階2（文字入れ）は全パターン共通で運用する。
+
+### パターン2-v2-1：スマホの残高画面＋暗い影（対比構図）
+
+#### 段階1（nanobanana／文字なし）
 
 a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, his hand holding a smartphone glowing with a rising balance graph with no legible content, a dark ominous shadow creeping up from beneath the phone across his face, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, cold heavily desaturated low-key dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-### 段階2（GPT Image 2.0／文字入れ）
+#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
 
-Using the image generated in Step 1 as the base, add Japanese thumbnail title text.
+Using the generated image as the base, add Japanese thumbnail title text.
 Title copy (from metadata_final.json confirmed_title): 「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴。
 For thumbnail legibility: display the hook phrase 「元経営者だから大丈夫」 in very large,
 bold, high-contrast white or yellow Japanese sans-serif text as the dominant visual element,
 positioned along the center-right of the frame. Beneath or beside it in smaller supporting
 text, add 「60代の老後資金が狙われる」 or simply 「SNS投資詐欺の罠」 to anchor the context
-while keeping the main message about overconfidence prominent. Leave the smartphone and the
-man's face clearly visible on the left. Add a strong dark outline or drop shadow around the
-text for legibility against the living room background at small preview sizes. Do not alter
-the underlying image, character appearance, or background — add text only.
+while keeping the main message about overconfidence prominent. Ensure key visual elements
+(smartphone, subject's face) remain clearly visible. Add a strong dark outline or drop shadow
+around the text for legibility against background at small preview sizes. Do not alter the
+underlying image, character appearance, or background — add text only.
+
+---
+
+### パターン2-v2-2：ビフォーアフター型（左右対比）
+
+#### 段階1（nanobanana／文字なし）
+
+split-screen composition: left side shows a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, with a confident, self-assured smug expression and bright direct gaze, standing in a warm traditional Japanese living room with tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting; right side shows the same man with a pale, shell-shocked, devastated expression, eyes wide with dread and realization, in the same setting with cold desaturated dramatic lighting and ominous shadows; both sides clearly delineated by a subtle vertical dividing line or gradient transition, softly blurred background, 16:9 landscape thumbnail composition, subjects large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+
+#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
+
+（上記と同じ）
+
+---
+
+### パターン2-v2-3：視線誘導型（手のクローズアップ）
+
+#### 段階1（nanobanana／文字なし）
+
+close-up focus on a Japanese man's hand in his early 60s holding a smartphone, the phone screen glowing brightly with a rising balance graph with no legible content, the smartphone dominating the lower-middle portion of the frame, soft warm lighting on the hand and device, while in the softly blurred background above and behind the phone, the same man's face is visible but out of focus, showing an anxious, worried, uncertain expression with furrowed brow and pursed lips contrasting with the bright promise of the glowing screen, a warm traditional Japanese living room setting visible but unfocused, cold desaturated dramatic lighting in the background, 16:9 landscape thumbnail composition, layered depth from sharp phone in foreground to soft face in background, framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+
+#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
+
+（上記と同じ）
 
 ---
 
