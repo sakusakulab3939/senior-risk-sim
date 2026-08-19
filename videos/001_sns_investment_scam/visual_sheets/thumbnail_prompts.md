@@ -4,11 +4,12 @@
 （段階1：nanobananaで文字なしの画像を生成 → 段階2：GPT Image 2.0でタイトルコピーを合成）
 向けのプロンプトに展開したもの。
 
-タイトルコピーは `output/metadata_draft.json` の `title_candidates` から、各方向性に
+タイトルコピーは `metadata_final.json` の `confirmed_title`（案2のみ）および
+`output/metadata_draft.json` の `title_candidates`（案1・案3）から、各方向性に
 最も合うものを1つずつ、3案とも別の候補を割り当てている。
 
-> **注記**：タイトルコピーはmetadata_draft.jsonの叩き台をそのまま使用しているため、
-> B-6（メタデータ磨き）実施後に見直しが必要。
+> **注記**：案2は `metadata_final.json` の確定タイトルに更新済み。案1・案3は
+> 引き続きmetadata_draft.jsonの候補から参照（B-6後の見直しは案2のみ実施）。
 
 ---
 
@@ -41,12 +42,15 @@ a Japanese man in his early 60s, short greying receding hair, thin-framed glasse
 ### 段階2（GPT Image 2.0／文字入れ）
 
 Using the image generated in Step 1 as the base, add Japanese thumbnail title text.
-Title copy (from metadata_draft.json title_candidates): 「SNS型投資詐欺・退職金一括投資で人生が狂った話」。
-Display in large, bold, high-contrast Japanese sans-serif text, split across two or three
-lines along the right side of the frame, leaving the smartphone and the man's face clearly
-visible on the left. Add a strong dark outline or drop shadow for legibility against the
-living room background at small preview sizes. Do not alter the underlying image, character
-appearance, or background — add text only.
+Title copy (from metadata_final.json confirmed_title): 「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴。
+For thumbnail legibility: display the hook phrase 「元経営者だから大丈夫」 in very large,
+bold, high-contrast white or yellow Japanese sans-serif text as the dominant visual element,
+positioned along the center-right of the frame. Beneath or beside it in smaller supporting
+text, add 「60代の老後資金が狙われる」 or simply 「SNS投資詐欺の罠」 to anchor the context
+while keeping the main message about overconfidence prominent. Leave the smartphone and the
+man's face clearly visible on the left. Add a strong dark outline or drop shadow around the
+text for legibility against the living room background at small preview sizes. Do not alter
+the underlying image, character appearance, or background — add text only.
 
 ---
 
@@ -82,11 +86,10 @@ or background — add text only.
   no speech bubbles, no sound effects, no captions, no watermarks, no signatures,
   no UI elements in the image`）を含めている
 
-### 段階2：タイトルコピーがmetadata_draft.jsonと矛盾しないか
-- 案1→title_candidates[2]（過信バイアスへの代償）、案2→title_candidates[0]（人生が狂った話）、
-  案3→title_candidates[1]（実録シミュレーション・末路）と3案とも別候補を割り当て、
-  いずれも `metadata_draft.json` に実在する文字列をそのまま使用している（新規のコピーは作成していない）
-- 案1のみ、割り当てた候補（title_candidates[2]）が文字数超過のためサムネ上では
-  「フック部分を大きく強調＋全文は小さく添える」構成にしている。これは表示レイアウト上の
-  調整であり、コピー自体を書き換えたわけではない（矛盾ではなく可読性のための運用判断として
-  段階2プロンプト内に明記済み）
+### 段階2：タイトルコピーがmetadata_final.jsonと矛盾しないか
+- B-6確定後、案2のタイトルコピーは `metadata_final.json` の `confirmed_title`
+  「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴に更新済み
+- サムネ瞬間認識のため、「元経営者だから大丈夫」をフックの大サイズテキストとして
+  採用し、「60代の老後資金が狙われる」または「SNS投資詐欺の罠」を小さく添える
+  レイアウトに調整。これは確定タイトルの意味を保ちつつ、サムネ可読性のための
+  運用判断であり、コピー自体を改変したわけではない
