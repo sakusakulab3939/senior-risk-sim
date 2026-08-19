@@ -60,9 +60,14 @@ risk_simジャンル対応・全文一括執筆方式に作り替えたもの。
 | `videos/{video_id}/output/voice_plain_text.txt` | B-5 | Vrew用ナレーション素材 |
 | `videos/{video_id}/output/voice_assignment.csv` | B-5 | 話者割当 |
 | `videos/{video_id}/output/image_prompts_final.json` | B-5 | 画像生成プロンプト |
+| `videos/{video_id}/metadata_final.json` | B-6 | 確定したタイトル3案・概要欄・タグ。output/metadata_draft.jsonは実行のたびに再生成される叩き台であり別物 |
 | `genres/risk_sim.json` | Phase 0-3 | ジャンル設計（ゾーン構造・結末パターン・chars_per_scene） |
 
 各工程の担当エージェントは、この表にあるファイルの読み書きだけで完結させること。
+
+### B-6運用上の注記
+
+B-6完了後は、必ずmetadata_final.jsonとして動画ルート直下に確定版を保存すること。output/配下のファイルはproduction_extractor.py実行のたびに再生成されるため、Git管理下に置いても意味がない。
 
 ### 動画ごとの成果物の置き場所
 
