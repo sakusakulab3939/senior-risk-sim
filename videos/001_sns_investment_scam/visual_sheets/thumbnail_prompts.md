@@ -28,21 +28,19 @@
 
 **参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
-**文字入れスペース確保**：段階2で下部と右側に「自分は騙されない」という過信バイアスのテキストが配置される予定のため、顔・目元は画面の上部2/3に収め、下部1/3は背景の質感は保ちつつ、顔や手など細部の重要な要素が掛からないようにする。
+a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, an extreme close-up on his pale shocked face frozen in dread, wide fearful eyes contrasting with his confident business-owner bearing, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, cold desaturated dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, an extreme close-up on his pale shocked face frozen in dread, wide fearful eyes contrasting with his confident business-owner bearing, positioned in the upper-to-middle portion of frame, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background in the lower portion maintaining atmospheric depth without character elements, cold desaturated dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent but with intentional lower-third spacing for text overlay, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+### 段階2（GPT Image 2.0／文字入れ）—対話的運用
 
-### 段階2（GPT Image 2.0／文字入れ）
+**タイトルコピー**：「金融庁登録業者の確認方法、「自分は騙されない」という過信バイアスへの警鐘を知らずに払った代償——SNS型投資詐欺・退職金一括投資」（from metadata_draft.json title_candidates）
 
-Using the image generated in Step 1 as the base, add Japanese thumbnail title text.
-Title copy source (from metadata_draft.json title_candidates): 「金融庁登録業者の確認方法、「自分は騙されない」という過信バイアスへの警鐘を知らずに払った代償——SNS型投資詐欺・退職金一括投資」。
-This candidate is long, so for thumbnail legibility: display the short hook phrase
-「自分は騙されない」という過信バイアス in large, bold, high-contrast Japanese sans-serif
-text across the upper third of the frame, positioned so it does not cover the subject's
-face. Place the remainder of the title copy in smaller supporting text along the bottom
-edge, preserving the full candidate text somewhere in frame. Add a strong dark outline or
-drop shadow for legibility against the background at small preview sizes. Do not alter the
-underlying image, character appearance, or background — add text only.
+段階1で生成された画像に対し、以下の方針でGPT Image 2.0に文字入れを指示する。初回は生成結果を見てから対話的に修正を繰り返す：
+
+- **フック語句**：「自分は騙されない」という過信バイアス を最大サイズで最も目立つ位置に配置（顔・表情と重ならないよう注意）
+- **補足情報**：残りのテキストは小さめで、画面下部または脇に添える（全文記載は不要、「〜の警鐘」など短縮可）
+- **配置調整**：背景・被写体の表情が見えることを優先。生成された画像を見て、実際に文字が入る余地がある場所を選ぶ
+- **視認性**：白または黄色文字＋濃い黒枠取りまたはドロップシャドウで、背景に関わらず視認性を確保する
+- **修正フロー**：初回生成後、「ここの配置を調整してほしい」など具体的な指示で対話的に修正。背景・被写体の構図は変えず、文字配置のみ調整する
 
 ---
 
@@ -57,22 +55,19 @@ underlying image, character appearance, or background — add text only.
 
 **参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
-**文字入れスペース確保**：段階2で右側中央に「元経営者だから大丈夫」が大きく配置され、下部にサブテキストが入る予定のため、顔は画面左側と上部に配置し、右側と下部1/3は背景の質感は保ちつつ、顔や目元が掛からないようにする。
+a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, his hand holding a smartphone glowing with a rising balance graph with no legible content, a dark ominous shadow creeping up from beneath the phone across his face, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, cold heavily desaturated low-key dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, his hand holding a smartphone positioned in the left-center area of frame, the phone screen glowing brightly with a rising balance graph with no legible content, a dark ominous shadow creeping up from beneath the phone across his face positioned in the upper-left quadrant, his face occupying the left and upper portion of frame while maintaining clear space on the right side and lower third for text overlay, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background in the right and lower portions maintaining atmospheric depth without character details, cold heavily desaturated low-key dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent with intentional right-side and lower-third spacing for text, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+#### 段階2（GPT Image 2.0／文字入れ）—対話的運用
 
-#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
+**タイトルコピー**：「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴（from metadata_final.json confirmed_title）
 
-Using the generated image as the base, add Japanese thumbnail title text.
-Title copy (from metadata_final.json confirmed_title): 「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴。
-For thumbnail legibility: display the hook phrase 「元経営者だから大丈夫」 in very large,
-bold, high-contrast white or yellow Japanese sans-serif text as the dominant visual element,
-positioned along the center-right of the frame. Beneath or beside it in smaller supporting
-text, add 「60代の老後資金が狙われる」 or simply 「SNS投資詐欺の罠」 to anchor the context
-while keeping the main message about overconfidence prominent. Ensure key visual elements
-(smartphone, subject's face) remain clearly visible. Add a strong dark outline or drop shadow
-around the text for legibility against background at small preview sizes. Do not alter the
-underlying image, character appearance, or background — add text only.
+段階1で生成された画像に対し、以下の方針でGPT Image 2.0に文字入れを指示する。初回は生成結果を見てから対話的に修正を繰り返す：
+
+- **フック語句**：「元経営者だから大丈夫」 を最大サイズで最も目立つ位置に配置（顔・スマートフォン画面と重ならないよう注意）
+- **補足情報**：「60代の老後資金が狙われる」または「SNS投資詐欺の罠」を小さめで、フック語句の下または脇に添える（省略可）
+- **配置調整**：背景の質感、被写体の表情、スマートフォン画面など見せ場になる要素が見えることを優先。生成された画像を見て実際に文字が入る余地がある場所を選ぶ
+- **視認性**：白または黄色文字＋濃い黒枠取りまたはドロップシャドウで、背景に関わらず視認性を確保する
+- **修正フロー**：初回生成後、「ここの配置を調整してほしい」など具体的な指示で対話的に修正。背景・被写体の構図は変えず、文字配置のみ調整する
 
 ---
 
@@ -82,19 +77,25 @@ underlying image, character appearance, or background — add text only.
 
 **参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
-**文字入れスペース確保**：段階2で中央帯に「元経営者だから大丈夫」という大きなテキストが配置される予定のため、左右の顔は中央の縦帯からやや離して配置し、中央帯（特に顔の高さ帯）は背景の質感は保ちつつ、目元や細部が掛からないようにする。顔は左側と右側の外側に配置することで、中央の文字スペースを確保する。
+split-screen composition with dramatic left-right contrast: 
 
-split-screen composition with dramatic left-right contrast and center text spacing: 
+LEFT SIDE (self-assured before): a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, viewed from a slightly upward angle emphasizing strength and confidence, with a proud, smug, self-assured expression and bright direct gaze, bathed in warm golden-orange lighting, standing in a bright, prosperous-looking warm traditional Japanese living room with tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned mood lighting, family photos on shelf, and background details including framed company founder certificates, a formal letter envelope (retirement lump sum notification), and a piggy bank or safe, softly blurred warm background;
 
-LEFT SIDE (self-assured before): a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, viewed from a slightly upward angle emphasizing strength and confidence, positioned toward the outer left edge of frame, with a proud, smug, self-assured expression and bright direct gaze, bathed in warm golden-orange lighting, standing in a bright, prosperous-looking warm traditional Japanese living room with tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned mood lighting, family photos on shelf, and background details including framed company founder certificates, a formal letter envelope (retirement lump sum notification), and a piggy bank or safe, softly blurred warm background;
+RIGHT SIDE (devastated after): the same man viewed from a slightly downward camera angle emphasizing weakness and defeat, with a pale, ashen, shell-shocked, devastated expression, eyes hollow and wide with dread and realization of loss, bathed in cold blue-cyan harsh lighting, in the same room now rendered in cold desaturated tones, ominous deep shadows creeping across his face and body, with background elements now darkened and sinister including the glow of a smartphone screen casting eerie light on his features, and the room itself appearing claustrophobic and trap-like, softly blurred cold background;
 
-RIGHT SIDE (devastated after): the same man viewed from a slightly downward camera angle emphasizing weakness and defeat, positioned toward the outer right edge of frame, with a pale, ashen, shell-shocked, devastated expression, eyes hollow and wide with dread and realization of loss, bathed in cold blue-cyan harsh lighting, in the same room now rendered in cold desaturated tones, ominous deep shadows creeping across his face and body, with background elements now darkened and sinister including the glow of a smartphone screen casting eerie light on his features, and the room itself appearing claustrophobic and trap-like, softly blurred cold background;
+both sides clearly delineated by a sharp vertical dividing line or dramatic lighting gradient transition at center, emphasizing the psychological rupture between before and after, 16:9 landscape thumbnail composition, subjects large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework with exaggerated emotional contrast, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-center vertical band maintains atmospheric background texture but is clear of character facial details, allowing for text overlay of hook phrase; both sides clearly delineated by a sharp vertical dividing line or dramatic lighting gradient transition at center, emphasizing the psychological rupture between before and after, 16:9 landscape thumbnail composition, subjects positioned toward outer edges with intentional center spacing for text, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework with exaggerated emotional contrast, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+#### 段階2（GPT Image 2.0／文字入れ）—対話的運用
 
-#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
+**タイトルコピー**：「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴（from metadata_final.json confirmed_title）
 
-（上記と同じ）
+段階1で生成された左右対比画像に対し、以下の方針でGPT Image 2.0に文字入れを指示する。初回は生成結果を見てから対話的に修正を繰り返す：
+
+- **フック語句**：「元経営者だから大丈夫」 を最大サイズで配置。左右の顔・表情が見える位置（中央または上部）に配置することで、ビフォーアフターの対比構図を活かす
+- **補足情報**：「60代の老後資金が狙われる」または「SNS投資詐欺の罠」を小さめで添える（省略可）
+- **配置調整**：左右の表情（自信vs絶望）が見えることを最優先。生成された画像を見て、実際に文字が入る余地がある場所を選ぶ
+- **視認性**：白または黄色文字＋濃い黒枠取りまたはドロップシャドウで視認性を確保する
+- **修正フロー**：初回生成後、「ここの配置を調整してほしい」など具体的な指示で対話的に修正。背景・被写体の構図は変えず、文字配置のみ調整する
 
 ---
 
@@ -104,13 +105,19 @@ center vertical band maintains atmospheric background texture but is clear of ch
 
 **参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
-**文字入れスペース確保**：段階2で上部または左上にテキストが配置される予定のため、スマートフォンと手は下部・中央に保ち、背景となる顔のぼやけた要素は背景上部に配置する。上部1/3と左側は背景の質感は保ちつつ、顔の重要な細部（目元など）が掛からないようにして、テキスト配置スペースを確保する。
+close-up focus on a Japanese man's hand in his early 60s holding a smartphone, the phone screen glowing brightly with a rising balance graph with no legible content, the smartphone dominating the lower-middle portion of the frame, soft warm lighting on the hand and device, while in the softly blurred background above and behind the phone, the same man's face is visible but out of focus, showing an anxious, worried, uncertain expression with furrowed brow and pursed lips contrasting with the bright promise of the glowing screen, a warm traditional Japanese living room setting visible but unfocused, cold desaturated dramatic lighting in the background, 16:9 landscape thumbnail composition, layered depth from sharp phone in foreground to soft face in background, framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-close-up focus on a Japanese man's hand in his early 60s holding a smartphone, the phone screen glowing brightly with a rising balance graph with no legible content, the smartphone dominating the lower-middle to lower-right portion of the frame, soft warm lighting on the hand and device, while in the softly blurred background above and behind the phone, the same man's face is visible but out of focus in the upper background, showing an anxious, worried, uncertain expression with furrowed brow and pursed lips contrasting with the bright promise of the glowing screen, positioned in upper portion to avoid covering upper-third text space, a warm traditional Japanese living room setting visible but unfocused in the upper and left portions maintaining atmospheric depth, cold desaturated dramatic lighting in the background, 16:9 landscape thumbnail composition, layered depth from sharp phone in lower-middle foreground to soft face in upper background, with intentional upper-third and left-side spacing for text overlay, framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+#### 段階2（GPT Image 2.0／文字入れ）—対話的運用
 
-#### 段階2（GPT Image 2.0／文字入れ）—全パターン共通
+**タイトルコピー**：「元経営者だから大丈夫」——60代の老後資金が狙われるSNS投資詐欺の落とし穴（from metadata_final.json confirmed_title）
 
-（上記と同じ）
+段階1で生成された手のクローズアップ画像に対し、以下の方針でGPT Image 2.0に文字入れを指示する。初回は生成結果を見てから対話的に修正を繰り返す：
+
+- **フック語句**：「元経営者だから大丈夫」 を最大サイズで配置。スマートフォン画面と背景の不安げな表情が見える位置（上部または左上）を選ぶ
+- **補足情報**：「60代の老後資金が狙われる」または「SNS投資詐欺の罠」を小さめで添える（省略可）
+- **配置調整**：スマートフォン画面の光と背景の不安げな顔の両方が見えることを優先。生成された画像を見て実際に文字が入る余地がある場所を選ぶ
+- **視認性**：白または黄色文字＋濃い黒枠取りまたはドロップシャドウで視認性を確保する
+- **修正フロー**：初回生成後、「ここの配置を調整してほしい」など具体的な指示で対話的に修正。背景・被写体の構図は変えず、文字配置のみ調整する
 
 ---
 
@@ -120,20 +127,19 @@ close-up focus on a Japanese man's hand in his early 60s holding a smartphone, t
 
 **参照画像**：P1_fujita_kenichi.png を必ず参照画像として添付すること（トレイトロックの一貫性を保つため）
 
-**文字入れスペース確保**：段階2で左上に【実録シミュレーション】のバッジが配置され、下部1/3に本文テキストが入る予定のため、広告グラフィックは画面の上部・中央に配置し、人物は背景に小さくぼやかし、左上と下部1/3は背景の質感は保ちつつ、人物の顔や細部が掛からないようにしてテキストスペースを確保する。
+a mock investment advertisement screenshot-style graphic featuring a smiling celebrity investor portrait and a fake verified checkmark badge, with rows of plain placeholder bars instead of readable text, a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, softly out of focus in the background holding a smartphone displaying the advertisement, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background, slightly cool dramatic lighting, 16:9 landscape thumbnail composition, subject large and prominent in frame, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
 
-a mock investment advertisement screenshot-style graphic featuring a smiling celebrity investor portrait and a fake verified checkmark badge, positioned in the center-upper to center portion of the frame, with rows of plain placeholder bars instead of readable text, a Japanese man in his early 60s, short greying receding hair, thin-framed glasses, beige cardigan over a pale collared shirt, average build, softly out of focus in the background holding a smartphone displaying the advertisement, positioned behind and below the mock ad graphic to avoid blocking the upper-left and lower-third text spaces, a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors, low wooden table, warm-toned lighting, family photos and small plants on a shelf, softly blurred background in the upper-left and lower portions maintaining atmospheric depth without character facial details, slightly cool dramatic lighting, 16:9 landscape thumbnail composition, advertisement graphic prominent with character in supporting background, with intentional upper-left and lower-third spacing for text overlay, dramatic close-up framing optimized for small preview size, manga anime style, cel shading, crisp clean linework, controlled color palette, absolutely no text, no letters, no words, no speech bubbles, no sound effects, no captions, no watermarks, no signatures, no UI elements in the image
+### 段階2（GPT Image 2.0／文字入れ）—対話的運用
 
-### 段階2（GPT Image 2.0／文字入れ）
+**タイトルコピー**：「【実録シミュレーション】SNS型投資詐欺・退職金一括投資の末路」（from metadata_draft.json title_candidates）
 
-Using the image generated in Step 1 as the base, add Japanese thumbnail title text.
-Title copy (from metadata_draft.json title_candidates): 「【実録シミュレーション】SNS型投資詐欺・退職金一括投資の末路」。
-Display 【実録シミュレーション】 as a smaller badge-style label in the upper-left corner,
-and SNS型投資詐欺・退職金一括投資の末路 in large, bold, high-contrast Japanese sans-serif
-text along the bottom third of the frame, positioned to avoid covering the fake
-advertisement graphic. Add a strong dark outline or drop shadow for legibility against the
-background at small preview sizes. Do not alter the underlying image, character appearance,
-or background — add text only.
+段階1で生成された広告グラフィック画像に対し、以下の方針でGPT Image 2.0に文字入れを指示する。初回は生成結果を見てから対話的に修正を繰り返す：
+
+- **ラベル表示**：【実録シミュレーション】 を小さめのバッジ風で配置（左上が目安だが、実画像を見て最適位置を選ぶ）
+- **フック語句**：SNS型投資詐欺・退職金一括投資の末路 を最大サイズで配置。広告グラフィックと人物の両方が見える位置を選ぶ
+- **配置調整**：なりすまし広告のビジュアルと背景の人物が見えることを優先。生成された画像を見て実際に文字が入る余地がある場所を選ぶ
+- **視認性**：白または黄色文字＋濃い黒枠取りまたはドロップシャドウで視認性を確保する
+- **修正フロー**：初回生成後、「ここの配置を調整してほしい」など具体的な指示で対話的に修正。背景・被写体の構図は変えず、文字配置のみ調整する
 
 ---
 
