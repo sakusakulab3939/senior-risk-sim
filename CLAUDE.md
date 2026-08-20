@@ -46,6 +46,20 @@ risk_simジャンル対応・全文一括執筆方式に作り替えたもの。
 4. 縮退運転（Claude枠が逼迫している週）：B-2をSonnet 4.6に落とし、
    B-4の批評をOpusで厚めに行う（執筆を落として監査で拾う）。
 
+### コミット・push確認の運用（001の制作経験を踏まえて更新）
+
+以下は都度の確認を省略し、Claude Codeの判断でコミットまで進めてよい：
+- ADRの新規作成・追記
+- `videos/{video_id}/` 配下の個別ファイル（`blueprint.json`、
+  `FINAL_SCRIPT_FULL.md`等）の、指示内容通りの機械的な更新
+
+以下は引き続き、コミット前に必ず内容を確認する：
+- `genres/risk_sim.json`、`prompts/write_full_script.md`、
+  `src/production_extractor.py`（ジャンル全体・全動画に波及するため）
+
+pushは、作業の区切り（1つの工程が完了した時点等）でまとめて行ってよい。
+毎回immediate pushする必要はない。
+
 ---
 
 ## ファイル正本方式（Single Source of Truth）
