@@ -10,11 +10,16 @@ P2: 12カット中11件、LOC01: 10カット中8件、LOC02: 15カット中6件�
 不一致はSCENE 003の喪服描写やLOC02の室内カットでの補足描写など、演出上
 意図的なバリエーションであり、locked_prompt_fragment自体の変更は不要と判断した。
 
+追記（P1に"light stubble"を追加）：実際に生成・採用したキャラクターシートに
+無精髭が入っていたため、トレイトロックの一貫性を保つ目的でP1の
+locked_prompt_fragmentに"light stubble"を追加した。blueprint.json・
+FINAL_SCRIPT_FULL.mdの全26カット・本ファイルの3箇所を同時に更新済み。
+
 ---
 
 ## P1_kawashima_takuya（川島拓也・主人公）
 
-character design sheet, full body three-view (front, side, back) on the left, four facial expressions (confident, uneasy, shocked, despairing) on the right, a Japanese man in his early 40s, short neat black hair, tired eyes, business casual attire, slim build, white background, manga anime style, cel shading, crisp clean linework, controlled color palette, no text, no titles, no labels, no captions, no rulers, no measurement scale, no numeric labels, no annotation text, no watermarks, plain white background only
+character design sheet, full body three-view (front, side, back) on the left, four facial expressions (confident, uneasy, shocked, despairing) on the right, a Japanese man in his early 40s, short neat black hair, tired eyes, light stubble, business casual attire, slim build, white background, manga anime style, cel shading, crisp clean linework, controlled color palette, no text, no titles, no labels, no captions, no rulers, no measurement scale, no numeric labels, no annotation text, no watermarks, plain white background only
 
 ---
 
