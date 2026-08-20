@@ -674,6 +674,91 @@ def write_thumbnail_prompts(blueprint: dict, out_dir: Path):
     )
 
 
+# --- video_description.txt 生成（ADR-012） ---
+#
+# explanation_sources のフィールド命名対応（階層により異なるため注記）：
+#   - genres/risk_sim.json       : zones[explanation].sources … スキーマ定義のみ（ネスト構造）
+#   - videos/{id}/blueprint.json : explanation_sources          … 実データ（フラット命名）
+#   - 本関数の読み込み元は blueprint.json.explanation_sources
+#
+# 概要欄本文・目次の章タイトル/タイムスタンプは自動生成しない（人間の編集を前提とする）。
+# 理由：
+#   - 機械的な文面連結だとテンプレート化し、収益化ポリシー『一般的、または繰り返しの
+#     多いコンテンツ』条項のリスクになる（概要欄も審査対象）
+#   - 文字数からの推定秒数はElevenLabs音声・編集後の確定尺とずれる。YouTubeチャプターは
+#     誤クリックを誘発するズレを許容しない上、1行目が00:00固定＋3行以上必須という仕様
+#     があり、自動生成した推定値では条件を満たせないことがある
+
+def build_video_description(blueprint: dict, genre_path: Path) -> str:
+    theme = blueprint.get("theme", "")
+    focus = blueprint.get("explanation_focus", "")
+
+    header_comment = (
+        "# この動画の概要欄ドラフトです。# で始まる行と（）内のプレースホルダは\n"
+        "# 公開前に必ず人間が編集・削除してください（ADR-012）。"
+    )
+
+    overview_block = "\n".join([
+        "【この動画について】",
+        "（ここに3〜4行で動画の概要を書く。",
+        "  blueprint.json の theme / plot_summary / explanation_focus を参考に、",
+        "  毎回異なる文面で書くこと）",
+        f"# theme: {theme}",
+        f"# explanation_focus: {focus}",
+    ])
+
+    toc_lines = [
+        "【目次】",
+        "# タイムスタンプは編集完了後（DaVinci上で確定した尺）に人間が埋める。自動計算しない",
+        "# 章タイトルはゾーン名ではなく視聴者向けの文言に人間が書き換える",
+        "# 各行末の「← zone_id」は対応関係の参考用。公開前に削除する",
+    ]
+    if genre_path.exists():
+        genre = json.loads(genre_path.read_text(encoding="utf-8"))
+        zones_sorted = sorted(genre["zones"], key=lambda z: z["order"])
+        for i, zone in enumerate(zones_sorted):
+            timestamp = "00:00" if i == 0 else "--:--"
+            toc_lines.append(f"{timestamp} （章タイトル）  ← {zone['zone_id']}")
+    else:
+        toc_lines.append("# genres/risk_sim.jsonが見つからないため章の雛形を生成できませんでした")
+    toc_block = "\n".join(toc_lines)
+
+    sources = blueprint.get("explanation_sources", [])
+    blocks = [header_comment, overview_block, toc_block]
+    if sources:
+        source_lines = ["【参照元】"]
+        for src in sources:
+            source_lines.append(
+                f"{src.get('organization', '')} / {src.get('title', '')} / {src.get('url', '')}"
+            )
+        blocks.append("\n".join(source_lines))
+    else:
+        print(
+            "[WARN] explanation_sources が空です。\n"
+            "       video_description.txt に参照元ブロックは\n"
+            "       出力されません（ADR-012）。"
+        )
+
+    fixed_block = (
+        "登場する人物・団体・出来事はすべて架空のものです。\n"
+        "実在の個人・団体とは一切関係ありません。\n\n"
+        "当チャンネルは金融・法律・税務の専門的助言を行うものでは\n"
+        "ありません。実際のご判断にあたっては、公的窓口または\n"
+        "有資格の専門家にご相談ください。\n\n"
+        "【相談先】\n"
+        "消費者ホットライン 188（いやや）\n"
+        "警察相談専用電話 #9110"
+    )
+    blocks.append(fixed_block)
+
+    return "\n\n".join(blocks) + "\n"
+
+
+def write_video_description(blueprint: dict, genre_path: Path, out_dir: Path):
+    text = build_video_description(blueprint, genre_path)
+    (out_dir / "video_description.txt").write_text(text, encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="FINAL_SCRIPT_FULL.mdから制作データ（ナレーション・画像プロンプト・メタデータ叩き台）を抽出する"
@@ -716,6 +801,7 @@ def main():
     write_metadata_draft(blueprint, out_dir)
     write_thumbnail_prompts(blueprint, out_dir)
     write_dialogue_breakdown(scenes, blueprint, video_dir)
+    write_video_description(blueprint, genre_path, out_dir)
 
     for w in warnings:
         print(f"[WARNING] {w}", file=sys.stderr)

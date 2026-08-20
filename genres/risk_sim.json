@@ -97,7 +97,13 @@
       "duration_ratio": 0.20,
       "pacing": "情報密度は高いが、テンポは物語より落とす。ただし単調な講義口調にしない",
       "retention_risk": "物語クライマックス後の離脱が最も起きやすいゾーン。後置きの塊/物語内分散/圧縮の3パターンを初期10本でテストする。どのパターンを使ったかはblueprint.jsonのexplanation_layoutフィールドで1本ごとに記録し、metrics.csvのexplanation_layout列と突合して比較する（enum定義はexplanation_layout_options参照）",
-      "avoid": ["説教臭い断定口調", "CTA的な煽り", "スローガン化した警句"]
+      "avoid": ["説教臭い断定口調", "CTA的な煽り", "スローガン化した警句"],
+      "speaker_constraint": "no_professional_title",
+      "speaker_constraint_note": "収益化ポリシー『デリケートなトピックに関連するAIペルソナ』条項への対応（ADR-012）。解説の話者にFP・弁護士・税理士等の職業的肩書きを与えない。助言構文（『〜すべきです』）ではなく説明構文（『〜という制度があります』）で書く",
+      "sources": {
+        "_schema_note": "各要素は { organization, title, url } の3フィールドを持つ配列。本ファイルはジャンル共通のためスキーマ定義のみを持つ。動画ごとの実際の値はblueprint.jsonのexplanation.sourcesに持たせる（ADR-012）",
+        "fields": ["organization", "title", "url"]
+      }
     },
     {
       "zone_id": "checklist",
@@ -109,7 +115,8 @@
       "max_sec": 45,
       "pacing": "テンポよく列挙。冗長な繰り返しをしない",
       "visual_note": "DaVinci解説パート用テロップテンプレ（Phase 0-6）と連動",
-      "duration_calc_note": "hookと同率(0.05)だが役割が異なる。min/max_secはhookより広め（列挙項目数に応じて多少伸びてよいため）"
+      "duration_calc_note": "hookと同率(0.05)だが役割が異なる。min/max_secはhookより広め（列挙項目数に応じて多少伸びてよいため）",
+      "requires": ["教訓（lesson）の数とカットの数を1対1で対応させる（ADR-009。001では教訓5・カット2で不整合が発生した）"]
     }
   ],
 
@@ -156,6 +163,11 @@
       }
     ],
     "assignment_note": "この比率・配分は本ファイルで強制しない。動画ごとにblueprint.jsonのending_patternフィールドで人間が指定する（B-1）。available:falseのパターンはB-1の企画提案プロンプト側でフィルタし、そもそも候補に出さない。初期10本の配分ガイドラインはCLAUDE.mdを参照"
+  },
+
+  "protagonist_variation_axes": {
+    "_note": "収益化ポリシー『一般的、または繰り返しの多いコンテンツ』条項への対応（ADR-012）。動画ごとに主人公の属性を分散させ、同工異曲の量産と判定されるリスクを下げる。実際の値の割当はblueprint.json.protagonistフィールドで動画ごとに人間が指定する（B-1）",
+    "axes": ["age_band", "gender", "occupation", "household_composition", "misjudgment_type"]
   },
 
   "chars_per_scene_calc": {

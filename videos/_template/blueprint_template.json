@@ -26,6 +26,8 @@
     "（判断ミス3：後戻りの機会を逃す）"
   ],
   "explanation_focus": "（解説パートで扱う制度・予防策のテーマ。例：クーリングオフ制度、金融庁の適合性原則など）",
+  "explanation_sources": [],
+  "_explanation_sources_note": "解説内容の根拠となる公的機関の一次情報（ADR-012）。B-1またはB-2執筆時に調査して埋める。各要素は { organization, title, url } の3フィールドを持つ（スキーマ定義はrisk_sim.jsonのexplanationゾーンのsourcesを参照）。例: { \"organization\": \"金融庁\", \"title\": \"投資詐欺にご注意ください\", \"url\": \"https://www.fsa.go.jp/...\" }",
   "thumbnail_direction": [
     "（方向性1）",
     "（方向性2）",
