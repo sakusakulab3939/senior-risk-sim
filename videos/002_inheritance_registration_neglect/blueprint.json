@@ -1,0 +1,60 @@
+{
+  "genre": "risk_sim",
+  "theme": "相続登記・実家放置",
+  "plot_summary": "都内でIT系の会社員として働く独身の主人公は、実家を出て一人暮らしをしていた。母の死後、実家で同居していた姉に相続や名義変更を任せきりにし、自分は当事者ではないと考えて確認も相談もしなかった。姉から登記書類への押印を求められても多忙を理由に先延ばしにし続け、実家の売却話が進んだ際に自分の同意（遺産分割協議書への押印）がなければ手続きが進まないと知り、急遽対応に追われる。",
+  "ending_pattern": "small_lesson",
+  "explanation_layout": "distributed",
+  "duration_mode": "fast_validation",
+  "protagonist": {
+    "age": 43,
+    "occupation": "会社員（IT系、多忙）",
+    "family_structure": "独身、実家を出て都内で一人暮らし。姉が地元で母と同居していた",
+    "core_vulnerability": "実家のことは同居していた姉が把握しているはずだと思い込み、自分は当事者ではないと考えていた。相続の話し合いにも積極的に関わらなかった"
+  },
+  "key_misjudgments": [
+    "母の死後、実家の名義や遺産分割について「姉に任せておけば大丈夫」と考え、自分から確認や相談をしなかった",
+    "姉から「登記の書類に判子が必要」と連絡が来た際も、忙しさを理由に後回しにし、対応を先延ばしにした",
+    "実家を売却する話が進んだ際、自分の同意（遺産分割協議書への押印）がないと手続きが進まないことを知り、急遽対応に追われた"
+  ],
+  "explanation_focus": "相続登記は相続人全員の遺産分割協議書が必要であり、1人でも対応を怠ると手続き全体が止まる点。義務化は相続人「全員」に課される点",
+  "explanation_sources": [
+    {
+      "organization": "法務省",
+      "title": "相続登記の申請義務化に関するQ＆A",
+      "url": "https://www.moj.go.jp/MINJI/minji05_00565.html"
+    }
+  ],
+  "thumbnail_direction": [
+    "「姉に任せておけばいい」その油断が、自分にも過料の対象になっていた",
+    "届いた書類を開かずに積まれたまま放置される郵便物",
+    "スマホに届く姉からの未読メッセージの数"
+  ],
+  "visual_cast": [
+    {
+      "character_id": "P1",
+      "name": "（主人公名。仮）",
+      "role": "主人公",
+      "locked_prompt_fragment": "a Japanese man in his early 40s, short neat black hair, tired eyes, business casual attire, slim build",
+      "height_cm": 172
+    },
+    {
+      "character_id": "P2",
+      "name": "（姉名。仮）",
+      "role": "姉",
+      "locked_prompt_fragment": "a Japanese woman in her mid 40s, shoulder-length dark hair, practical cardigan over a blouse, average build",
+      "height_cm": 158
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "LOC01",
+      "name": "主人公の一人暮らしの部屋（都内）",
+      "locked_prompt_fragment": "a compact modern Tokyo apartment room, minimal furniture, a small desk with a laptop, city night view through the window, slightly cluttered with unopened mail"
+    },
+    {
+      "location_id": "LOC02",
+      "name": "実家（姉と母が同居していた家）",
+      "locked_prompt_fragment": "a modest Japanese family house in a quiet residential area, aged wooden exterior, small garden, traditional tiled roof"
+    }
+  ]
+}
