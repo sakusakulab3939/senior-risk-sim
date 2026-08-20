@@ -32,14 +32,14 @@
   "visual_cast": [
     {
       "character_id": "P1",
-      "name": "（主人公名。仮）",
+      "name": "川島拓也",
       "role": "主人公",
       "locked_prompt_fragment": "a Japanese man in his early 40s, short neat black hair, tired eyes, business casual attire, slim build",
       "height_cm": 172
     },
     {
       "character_id": "P2",
-      "name": "（姉名。仮）",
+      "name": "川島由紀",
       "role": "姉",
       "locked_prompt_fragment": "a Japanese woman in her mid 40s, shoulder-length dark hair, practical cardigan over a blouse, average build",
       "height_cm": 158
