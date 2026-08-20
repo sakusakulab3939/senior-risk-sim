@@ -32,5 +32,23 @@
     "（方向性1）",
     "（方向性2）",
     "（方向性3）"
-  ]
+  ],
+  "visual_cast": [
+    {
+      "character_id": "P1",
+      "name": "（人物名）",
+      "role": "（物語内の役割。例：主人公）",
+      "locked_prompt_fragment": "（画像生成プロンプトに一言一句そのまま使い回すトレイトロック文字列。英語で記述。例：a Japanese man in his early 60s, short greying hair, thin-framed glasses, beige cardigan）",
+      "height_cm": null
+    }
+  ],
+  "_visual_cast_note": "登場人物ごとのトレイトロック情報（ADR-004）。locked_prompt_fragmentは画像生成プロンプトに機械的に差し込まれる唯一のフィールドで、必須・全カット共通で一言一句同一の文字列を使い回す（スキーマ定義はrisk_sim.jsonのvisual_cast_schemaを参照）。height_cmは任意で、画像プロンプト本文には混入させない。複数キャラが同時に登場するCUTで『PXはPYよりやや背が高い』のような相対的な自然文表現を書く際の参考値としてのみ使う。character_idはfile名管理にも使う（例：P1_fujita_kenichi.png）",
+  "locations": [
+    {
+      "location_id": "LOC01",
+      "name": "（場所名。例：自宅リビング）",
+      "locked_prompt_fragment": "（画像生成プロンプトに一言一句そのまま使い回すトレイトロック文字列。英語で記述。例：a warm traditional Japanese living room, tatami mat flooring, wooden sliding shoji doors）"
+    }
+  ],
+  "_locations_note": "登場ロケーションごとのトレイトロック情報（ADR-004）。locked_prompt_fragmentの扱いはvisual_castと同様（必須・全カット共通で同一文字列を使い回す）。location_idはファイル名管理にも使う（例：LOC01_living_room.png）。ロケーションは単話完結のため小数（主人公宅・関連施設程度）を想定"
 }
