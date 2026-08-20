@@ -495,10 +495,11 @@ def build_metadata_draft(blueprint: dict) -> dict:
         f"予防策として「{focus}」についても解説しています。"
     ).strip()
 
+    # タグは叩き台。B-6で人間が検索語として実用的な
+    # 短い語に置き換える前提（ADR-013）
     tags = []
     for text in (theme, focus):
         if text:
-            tags.append(text)
             tags.extend(_keywords(text))
     tags = list(dict.fromkeys(tags))
 
